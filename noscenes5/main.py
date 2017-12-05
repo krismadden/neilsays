@@ -389,7 +389,7 @@ class GamePlay(Scene):
 
         if len(self.updateInput) == len(self.words[self.director.level][0]):
             if self.updateInput == self.words[self.director.level][0]:
-                self.bColor = (0,255,0)
+                self.bColor = ((0,255,0))
                 self.answer = self.words[self.director.level][2]
                 print("correct! " + self.words[self.director.level][1])
                 pause(1000)
@@ -398,7 +398,7 @@ class GamePlay(Scene):
                 director.change_scene(director.leadLevel)
                 self.bColor = (35,108,135)
             else:
-                self.bColor(255,0,0)
+                self.bColor((255,0,0))
                 self.answer = self.words[self.director.level][2]
                 print("wrong! " + self.words[self.director.level][1])
                 pause(1000)
