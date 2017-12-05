@@ -204,6 +204,9 @@ class Scene:
         self.level = 1
         self.changeScene = False
 
+        self.white = (255, 255, 255)
+        self.black = (0,0,0)
+
     def on_update(self,state=""):
         "Called from the director and defined on the subclass."
         raise NotImplemented("on_update abstract method must be defined in subclass.")
@@ -346,7 +349,7 @@ class LoadLevel(Scene):
 
         self.text_to_screen(self.screen, 'Level', self.screenWidth/2, 100, 100, (0, 000, 000))
 
-        self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, 200, (0, 000, 000))
+        self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, 200, self.white)
        
     def on_update(self,state):
         pass
@@ -359,9 +362,9 @@ class LoadLevel(Scene):
         thetime = float(time.clock() - director.start_time)
 
         self.screen.fill((35,108,135))
-        self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, 200, (0, 000, 000))
+        self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, 200, self.white)
         #self.time = self.text_to_screen(self.screen, str(thetime), self.screenWidth/2, self.screenHeight/2, 50, (0, 000, 000))
-        self.text_to_screen(self.screen, 'Level', self.screenWidth/2, 100, 100, (0, 000, 000))
+        self.text_to_screen(self.screen, 'Level', self.screenWidth/2, 100, 100, self.white)
         
 
         if(thetime >= 0.6):
@@ -386,9 +389,9 @@ class GamePlay(Scene):
         self.screen.fill(self.bColor)
         ##pygame.display.update()
 
-        self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, 100, 100, (0, 000, 000))
-        self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, (0, 000, 000))
-        self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, (0, 000, 000))
+        self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, 100, 100, self.white)
+        self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.white)
+        self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.white)
     
     def on_update(self,state):
         pass
@@ -407,9 +410,9 @@ class GamePlay(Scene):
                 self.screen.fill(self.bColor)
                 self.answer = self.words[self.director.level][2]
 
-                self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, 100, 100, (0, 000, 000))
-                self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, (0, 000, 000))
-                self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, (0, 000, 000))
+                self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, 100, 100, self.black)
+                self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.black)
+                self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.black)
     
                 print("correct! " + self.words[self.director.level][1])
                 pygame.display.update()
@@ -425,9 +428,9 @@ class GamePlay(Scene):
                 self.screen.fill(self.bColor)
                 self.answer = self.words[self.director.level][2]
 
-                self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, 100, 100, (0, 000, 000))
-                self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, (0, 000, 000))
-                self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, (0, 000, 000))
+                self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, 100, 100, self.white)
+                self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.white)
+                self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.white)
     
                 print("wrong! " + self.words[self.director.level][1])
                 pygame.display.update()
@@ -443,9 +446,9 @@ class GamePlay(Scene):
         self.updateInput = self.director.input
         self.screen.fill(self.bColor)
     
-        self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, 100, 100, (0, 000, 000))
-        self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, (0, 000, 000))
-        self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, (0, 000, 000))
+        self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, 100, 100, self.white)
+        self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.white)
+        self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.white)
 
 
 class Name(Scene):
@@ -458,7 +461,7 @@ class Name(Scene):
         self.screen.fill((35,108,135))
         ##pygame.display.update()
 
-        self.text_to_screen(self.screen, 'Use Keypad to Enter Name', self.screenWidth/2, 100, 50, (0, 000, 000))
+        self.text_to_screen(self.screen, 'Use Keypad to Enter Name', self.screenWidth/2, 100, 50, self.white)
 
     def on_update(self,state):
         pass
@@ -479,7 +482,7 @@ class Rules(Scene):
         self.screen.fill((35,108,135))
         ##pygame.display.update()
 
-        self.text_to_screen(self.screen, 'Rules', self.screenWidth/2, 100, 100, (0, 000, 000))
+        self.text_to_screen(self.screen, 'Rules', self.screenWidth/2, 100, 100, self.white)
 
     def on_update(self,state):
         pass
@@ -502,7 +505,7 @@ class High(Scene):
         self.screen.fill((35,108,135))
         ##pygame.display.update()
 
-        self.text_to_screen(self.screen, 'High Scores', self.screenWidth/2, 100, 100, (0, 000, 000))
+        self.text_to_screen(self.screen, 'High Scores', self.screenWidth/2, 100, 100, self.white)
 
     def on_update(self,state):
         pass
@@ -523,7 +526,7 @@ class About(Scene):
         self.screen.fill((35,108,135))
         ##pygame.display.update()
 
-        self.text_to_screen(self.screen, 'About', self.screenWidth/2, 100, 100, (0, 000, 000))
+        self.text_to_screen(self.screen, 'About', self.screenWidth/2, 100, 100, self.white)
 
        
     def on_update(self,state):
