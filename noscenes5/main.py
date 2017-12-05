@@ -195,7 +195,7 @@ class Scene:
 
     def __init__(self, director):
         self.director = director
-        self.screen = pygame.display.set_mode((1000,561), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((1000,561)) #,pygame.FULLSCREEN
         self.menuButtonActive = ""
 
         self.screenWidth = self.screen.get_rect().width
@@ -357,9 +357,14 @@ class LoadLevel(Scene):
     def on_draw(self, screen, director):
         #pass
         thetime = float(time.clock() - director.start_time)
+        
+        self.time = self.text_to_screen(self.screen, str(thetime), self.screenWidth/2, self.screenHeight/2, 50, (0, 000, 000))
+        self.screen.fill((35,108,135))
+
         if(thetime >= 0.5):
             self.changeScene = True
             self.sceneMessage = "Game Play"
+        print(thetime)
 
 
 class GamePlay(Scene):
