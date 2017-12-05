@@ -33,6 +33,8 @@ class Director:
         pygame.mouse.set_visible(0)
         self.input = ""
 
+        self.start_time = time.clock()
+
 
     def loop(self):
         "Main game loop."
@@ -170,6 +172,12 @@ class Director:
                 elif self.scene.sceneMessage == "Game Play":
                     self.gamePlay = GamePlay(self)
                     self.change_scene(self.gamePlay)
+                elif self.scene.sceneMessage == "Load Level":
+                    self.leadLevel = LoadLevel(self)
+                    self.change_scene(self.leadLevel)
+                elif self.scene.sceneMessage == "Name":
+                    self.name = Name(self)
+                    self.change_scene(self.name)
 
 
             time = self.clock.tick(30)
@@ -329,7 +337,6 @@ class LoadLevel(Scene):
         self.director = director
 
         self.sceneMessage = "None"
-        self.start_time = time.clock()
 
         Scene.__init__(self, director)
         director.sceneActive = "LoadLevel"
@@ -349,7 +356,7 @@ class LoadLevel(Scene):
 
     def on_draw(self, screen, director):
         #pass
-        thetime = int(time.clock() - self.start_time)
+        thetime = int(time.clock() - director.start_time)
         if(thetime >= 0.1):
             self.changeScene = True
             self.sceneMessage = "Game Play"
@@ -394,8 +401,10 @@ class GamePlay(Scene):
                 print("correct! " + self.words[self.director.level][1])
                 pause(1000)
                 self.director.input = ""
+                director.start_time = time.clock()
                 self.director.level = self.director.level + 1
-                director.change_scene(director.leadLevel)
+                self.changeScene = True
+                self.sceneMessage = "Load Level"
                 self.bColor = (35,108,135)
             else:
                 self.bColor = ((255,0,0))
@@ -403,8 +412,10 @@ class GamePlay(Scene):
                 print("wrong! " + self.words[self.director.level][1])
                 pause(1000)
                 self.director.input = ""
+                director.start_time = time.clock()
                 self.director.level = self.director.level + 1
-                director.change_scene(director.leadLevel) 
+                self.changeScene = True
+                self.sceneMessage = "Name"
                 self.bColor = (35,108,135)
      
 
@@ -416,6 +427,27 @@ class GamePlay(Scene):
         self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, (0, 000, 000))
         self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, (0, 000, 000))
 
+
+class Name(Scene):
+
+    def __init__(self, director):
+
+        Scene.__init__(self, director)
+        director.sceneActive = "Name"
+
+        self.screen.fill((35,108,135))
+        ##pygame.display.update()
+
+        self.text_to_screen(self.screen, 'Use Keypad to Enter Name', self.screenWidth/2, 100, 50, (0, 000, 000))
+
+    def on_update(self,state):
+        pass
+
+    def on_event(self):
+        pass
+
+    def on_draw(self, screen, director):
+        pass
 
 class Rules(Scene):
 
@@ -439,12 +471,13 @@ class Rules(Scene):
         pass
 
 
+
 class High(Scene):
 
     def __init__(self, director):
 
         Scene.__init__(self, director)
-        director.sceneActive = "LoadLevel"
+        director.sceneActive = "High"
 
         self.screen.fill((35,108,135))
         ##pygame.display.update()
@@ -465,7 +498,7 @@ class About(Scene):
     def __init__(self, director):
 
         Scene.__init__(self, director)
-        director.sceneActive = "LoadLevel"
+        director.sceneActive = "About"
 
         self.screen.fill((35,108,135))
         ##pygame.display.update()
