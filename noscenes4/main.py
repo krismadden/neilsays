@@ -208,7 +208,7 @@ class Scene:
         "Called when you want to draw the screen."
         raise NotImplemented("on_draw abstract method must be defined in subclass.")
 
-    def text_to_screen(self, screen, text, x1, y1, size, color, font_type = "fonts/roboto/Roboto-Light.ttf"):
+    def text_to_screen(self, screen, text, x1, y1, size, color, font_type = "fonts/Roboto/Roboto-Light.ttf"):
         try:
 
             text = str(text)
