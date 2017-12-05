@@ -368,7 +368,7 @@ class GamePlay(Scene):
         Scene.__init__(self, director)
         director.sceneActive = "GamePlay"
         
-        self.screen.fill(bColor)
+        self.screen.fill(self.bColor)
         ##pygame.display.update()
 
         self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, 100, 100, (0, 000, 000))
