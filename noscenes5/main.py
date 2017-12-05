@@ -346,7 +346,7 @@ class LoadLevel(Scene):
 
         self.text_to_screen(self.screen, 'Level', self.screenWidth/2, 100, 100, (0, 000, 000))
 
-        self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, 200, (0, 000, 000))
+        #self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, 200, (0, 000, 000))
        
     def on_update(self,state):
         pass
@@ -357,9 +357,11 @@ class LoadLevel(Scene):
     def on_draw(self, screen, director):
         #pass
         thetime = float(time.clock() - director.start_time)
-        
-        self.time = self.text_to_screen(self.screen, str(thetime), self.screenWidth/2, self.screenHeight/2, 50, (0, 000, 000))
+
         self.screen.fill((35,108,135))
+        self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, 200, (0, 000, 000))
+        self.time = self.text_to_screen(self.screen, str(thetime), self.screenWidth/2, self.screenHeight/2, 50, (0, 000, 000))
+
 
         if(thetime >= 0.5):
             self.changeScene = True
