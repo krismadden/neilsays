@@ -350,7 +350,7 @@ class LoadLevel(Scene):
     def on_draw(self, screen, director):
         #pass
         thetime = int(time.clock() - self.start_time)
-        if(thetime >= 1):
+        if(thetime >= 0.1):
             self.changeScene = True
             self.sceneMessage = "Game Play"
 
