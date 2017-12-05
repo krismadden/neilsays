@@ -357,7 +357,7 @@ class LoadLevel(Scene):
     def on_draw(self, screen, director):
         #pass
         thetime = int(time.clock() - director.start_time)
-        if(thetime >= 0.1):
+        if(thetime >= 0.01):
             self.changeScene = True
             self.sceneMessage = "Game Play"
 
@@ -413,7 +413,6 @@ class GamePlay(Scene):
                 pause(1000)
                 self.director.input = ""
                 director.start_time = time.clock()
-                self.director.level = self.director.level + 1
                 self.changeScene = True
                 self.sceneMessage = "Name"
                 self.bColor = (35,108,135)
