@@ -7,11 +7,16 @@
 import pygame, sys, time
 from pygame.locals import *
 import os
+import RPi.GPIO as GPIO
 
 
 from pygame_functions import *
 
 
+#LED setup
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(18,GPIO.OUT)
 
 class Director:
     """Represents the main object of the game.
@@ -35,6 +40,7 @@ class Director:
         self.input = ""
 
         self.start_time = time.clock()
+
 
 
     def loop(self):
@@ -296,10 +302,12 @@ class Menu(Scene):
             buttonY = self.vSpacing
             playBTN = pygame.draw.rect(self.screen, self.buttonColorActive, [self.buttonX, buttonY, self.buttonWidth, self.buttonHeight])
             playText = self.text_to_screen(self.screen, 'PLAY', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColorActive)
+            GPIO.output(18,GPIO.HIGH)
         elif state =="inactive":
             buttonY = self.vSpacing
             playBTN = pygame.draw.rect(self.screen, self.buttonColor, [self.buttonX, buttonY, self.buttonWidth, self.buttonHeight])
             playText = self.text_to_screen(self.screen, 'PLAY', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColor)
+            GPIO.output(18,GPIO.LOW)
 
     def rulesButton(self, state):
         if state == "active":
