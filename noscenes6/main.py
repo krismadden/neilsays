@@ -14,7 +14,7 @@ from pygame_functions import *
 
 
 #LED setup
-GPIO.setmode(GPIO.BOARD) #sets to pin number position
+GPIO.setmode(GPIO.BCM) #sets to pin number position
 GPIO.setwarnings(False)
 
 
@@ -404,7 +404,7 @@ class LoadLevel(Scene):
         self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, 200, self.white)
 
         allOff()
-        
+
     def on_update(self,state):
         pass
 
