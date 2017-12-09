@@ -14,9 +14,52 @@ from pygame_functions import *
 
 
 #LED setup
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD) #sets to pin number position
 GPIO.setwarnings(False)
-GPIO.setup(18,GPIO.OUT)
+
+
+GPIO.setup(21,GPIO.OUT) # #
+GPIO.setup(20,GPIO.OUT) # 0
+GPIO.setup(16,GPIO.OUT) # *
+GPIO.setup(12,GPIO.OUT) # 9
+GPIO.setup(7,GPIO.OUT) # 8
+GPIO.setup(8,GPIO.OUT) # 7
+GPIO.setup(25,GPIO.OUT) # 6
+GPIO.setup(24,GPIO.OUT) # 5
+GPIO.setup(23,GPIO.OUT) # 4
+GPIO.setup(18,GPIO.OUT) # 3
+GPIO.setup(15,GPIO.OUT) # 2
+GPIO.setup(14,GPIO.OUT) # 1
+
+def allOff():
+    GPIO.output(21,GPIO.LOW) # #
+    GPIO.output(20,GPIO.LOW) # 0
+    GPIO.output(16,GPIO.LOW) # *
+    GPIO.output(12,GPIO.LOW) # 9
+    GPIO.output(7,GPIO.LOW) # 8
+    GPIO.output(8,GPIO.LOW) # 7
+    GPIO.output(25,GPIO.LOW) # 6
+    GPIO.output(24,GPIO.LOW) # 5
+    GPIO.output(23,GPIO.LOW) # 4
+    GPIO.output(18,GPIO.LOW) # 3
+    GPIO.output(15,GPIO.LOW) # 2
+    GPIO.output(14,GPIO.LOW) # 1
+
+def allOn():
+    GPIO.output(21,GPIO.HIGH) # #
+    GPIO.output(20,GPIO.HIGH) # 0
+    GPIO.output(16,GPIO.HIGH) # *
+    GPIO.output(12,GPIO.HIGH) # 9
+    GPIO.output(7,GPIO.HIGH) # 8
+    GPIO.output(8,GPIO.HIGH) # 7
+    GPIO.output(25,GPIO.HIGH) # 6
+    GPIO.output(24,GPIO.HIGH) # 5
+    GPIO.output(23,GPIO.HIGH) # 4
+    GPIO.output(18,GPIO.HIGH) # 3
+    GPIO.output(15,GPIO.HIGH) # 2
+    GPIO.output(14,GPIO.HIGH) # 1
+
+allOff()
 
 class Director:
     """Represents the main object of the game.
@@ -359,7 +402,9 @@ class LoadLevel(Scene):
         self.text_to_screen(self.screen, 'Level', self.screenWidth/2, 100, 100, (0, 000, 000))
 
         self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, 200, self.white)
-       
+
+        allOff()
+        
     def on_update(self,state):
         pass
 
@@ -494,6 +539,8 @@ class Rules(Scene):
 
         self.text_to_screen(self.screen, 'Rules', self.screenWidth/2, 100, 100, self.white)
 
+        allOff()
+
     def on_update(self,state):
         pass
 
@@ -517,6 +564,7 @@ class High(Scene):
 
         self.text_to_screen(self.screen, 'High Scores', self.screenWidth/2, 100, 100, self.white)
 
+        allOn()
     def on_update(self,state):
         pass
 
@@ -538,7 +586,7 @@ class About(Scene):
 
         self.text_to_screen(self.screen, 'About', self.screenWidth/2, 100, 100, self.white)
 
-       
+        allOff()
     def on_update(self,state):
         pass
 
