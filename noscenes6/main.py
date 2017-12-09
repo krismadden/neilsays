@@ -7,57 +7,60 @@
 import pygame, sys, time
 from pygame.locals import *
 import os
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 
 
 from pygame_functions import *
 
 
 #LED setup
-GPIO.setmode(GPIO.BCM) #sets to pin number position
-GPIO.setwarnings(False)
+# GPIO.setmode(GPIO.BCM) #sets to pin number position
+# GPIO.setwarnings(False)
 
 
-GPIO.setup(21,GPIO.OUT) # #
-GPIO.setup(20,GPIO.OUT) # 0
-GPIO.setup(16,GPIO.OUT) # *
-GPIO.setup(12,GPIO.OUT) # 9
-GPIO.setup(7,GPIO.OUT) # 8
-GPIO.setup(8,GPIO.OUT) # 7
-GPIO.setup(25,GPIO.OUT) # 6
-GPIO.setup(24,GPIO.OUT) # 5
-GPIO.setup(23,GPIO.OUT) # 4
-GPIO.setup(18,GPIO.OUT) # 3
-GPIO.setup(15,GPIO.OUT) # 2
-GPIO.setup(14,GPIO.OUT) # 1
+# GPIO.setup(21,GPIO.OUT) # #
+# GPIO.setup(20,GPIO.OUT) # 0
+# GPIO.setup(16,GPIO.OUT) # *
+# GPIO.setup(12,GPIO.OUT) # 9
+# GPIO.setup(7,GPIO.OUT) # 8
+# GPIO.setup(8,GPIO.OUT) # 7
+# GPIO.setup(25,GPIO.OUT) # 6
+# GPIO.setup(24,GPIO.OUT) # 5
+# GPIO.setup(23,GPIO.OUT) # 4
+# GPIO.setup(18,GPIO.OUT) # 3
+# GPIO.setup(15,GPIO.OUT) # 2
+# GPIO.setup(14,GPIO.OUT) # 1
 
 def allOff():
-    GPIO.output(21,GPIO.LOW) # #
-    GPIO.output(20,GPIO.LOW) # 0
-    GPIO.output(16,GPIO.LOW) # *
-    GPIO.output(12,GPIO.LOW) # 9
-    GPIO.output(7,GPIO.LOW) # 8
-    GPIO.output(8,GPIO.LOW) # 7
-    GPIO.output(25,GPIO.LOW) # 6
-    GPIO.output(24,GPIO.LOW) # 5
-    GPIO.output(23,GPIO.LOW) # 4
-    GPIO.output(18,GPIO.LOW) # 3
-    GPIO.output(15,GPIO.LOW) # 2
-    GPIO.output(14,GPIO.LOW) # 1
+    pass
+    # GPIO.output(21,GPIO.LOW) # #
+    # GPIO.output(20,GPIO.LOW) # 0
+    # GPIO.output(16,GPIO.LOW) # *
+    # GPIO.output(12,GPIO.LOW) # 9
+    # GPIO.output(7,GPIO.LOW) # 8
+    # GPIO.output(8,GPIO.LOW) # 7
+    # GPIO.output(25,GPIO.LOW) # 6
+    # GPIO.output(24,GPIO.LOW) # 5
+    # GPIO.output(23,GPIO.LOW) # 4
+    # GPIO.output(18,GPIO.LOW) # 3
+    # GPIO.output(15,GPIO.LOW) # 2
+    # GPIO.output(14,GPIO.LOW) # 1
+    print("allOff()")
 
 def allOn():
-    GPIO.output(21,GPIO.HIGH) # #
-    GPIO.output(20,GPIO.HIGH) # 0
-    GPIO.output(16,GPIO.HIGH) # *
-    GPIO.output(12,GPIO.HIGH) # 9
-    GPIO.output(7,GPIO.HIGH) # 8
-    GPIO.output(8,GPIO.HIGH) # 7
-    GPIO.output(25,GPIO.HIGH) # 6
-    GPIO.output(24,GPIO.HIGH) # 5
-    GPIO.output(23,GPIO.HIGH) # 4
-    GPIO.output(18,GPIO.HIGH) # 3
-    GPIO.output(15,GPIO.HIGH) # 2
-    GPIO.output(14,GPIO.HIGH) # 1
+    print("allOn()")
+    # GPIO.output(21,GPIO.HIGH) # #
+    # GPIO.output(20,GPIO.HIGH) # 0
+    # GPIO.output(16,GPIO.HIGH) # *
+    # GPIO.output(12,GPIO.HIGH) # 9
+    # GPIO.output(7,GPIO.HIGH) # 8
+    # GPIO.output(8,GPIO.HIGH) # 7
+    # GPIO.output(25,GPIO.HIGH) # 6
+    # GPIO.output(24,GPIO.HIGH) # 5
+    # GPIO.output(23,GPIO.HIGH) # 4
+    # GPIO.output(18,GPIO.HIGH) # 3
+    # GPIO.output(15,GPIO.HIGH) # 2
+    # GPIO.output(14,GPIO.HIGH) # 1
 
 allOff()
 
@@ -345,12 +348,11 @@ class Menu(Scene):
             buttonY = self.vSpacing
             playBTN = pygame.draw.rect(self.screen, self.buttonColorActive, [self.buttonX, buttonY, self.buttonWidth, self.buttonHeight])
             playText = self.text_to_screen(self.screen, 'PLAY', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColorActive)
-            GPIO.output(18,GPIO.HIGH)
         elif state =="inactive":
             buttonY = self.vSpacing
             playBTN = pygame.draw.rect(self.screen, self.buttonColor, [self.buttonX, buttonY, self.buttonWidth, self.buttonHeight])
             playText = self.text_to_screen(self.screen, 'PLAY', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColor)
-            GPIO.output(18,GPIO.LOW)
+
 
     def rulesButton(self, state):
         if state == "active":
@@ -511,12 +513,13 @@ class Name(Scene):
 
         Scene.__init__(self, director)
         director.sceneActive = "Name"
-        
+        self.enterName = True
 
         self.screen.fill((35,108,135))
         ##pygame.display.update()
 
         self.text_to_screen(self.screen, 'Use Keypad to Enter Name', self.screenWidth/2, 100, 50, self.white)
+
 
     def on_update(self,state):
         pass
@@ -525,7 +528,16 @@ class Name(Scene):
         pass
 
     def on_draw(self, screen, director):
-        pass
+        self.cursor()
+        #pass
+        
+    def cursor(self):
+        while self.enterName:
+            self.text_to_screen(self.screen, '|', self.screenWidth/2, 400, 50, self.white)
+            pause(0.01)
+            self.text_to_screen(self.screen, '', self.screenWidth/2, 400, 50, self.white)
+            pause(0.01)
+
 
 class Rules(Scene):
 
@@ -560,7 +572,7 @@ class High(Scene):
         director.sceneActive = "High"
 
         self.screen.fill((35,108,135))
-        ##pygame.display.update()
+        
 
         self.text_to_screen(self.screen, 'High Scores', self.screenWidth/2, 100, 100, self.white)
 
@@ -573,6 +585,7 @@ class High(Scene):
 
     def on_draw(self, screen, director):
         pass
+
 
 class About(Scene):
 
