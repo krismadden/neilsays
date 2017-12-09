@@ -411,8 +411,8 @@ class GamePlay(Scene):
                 self.answer = self.words[self.director.level][2]
 
                 self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, 100, 100, self.black)
-                self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.black)
-                self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.black)
+                self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.white)
+                self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.white)
     
                 print("correct! " + self.words[self.director.level][1])
                 pygame.display.update()
@@ -457,6 +457,7 @@ class Name(Scene):
 
         Scene.__init__(self, director)
         director.sceneActive = "Name"
+        
 
         self.screen.fill((35,108,135))
         ##pygame.display.update()
