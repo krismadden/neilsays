@@ -4,10 +4,10 @@
 #raspberry pi turn on led https://thepihut.com/blogs/raspberry-pi-tutorials/27968772-turning-on-an-led-with-your-raspberry-pis-gpio-pins
 #text converter https://www.dcode.fr/multitap-abc-cipher 
 
-import pygame, sys, time
+import pygame, sys, time, math
 from pygame.locals import *
 import os
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import pickle
 
 from pygame_functions import *
@@ -16,53 +16,53 @@ from pygame_functions import *
 
 
 #LED setup
-# GPIO.setmode(GPIO.BCM) #sets to pin number position
-# GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM) #sets to pin number position
+GPIO.setwarnings(False)
 
 
-# GPIO.setup(21,GPIO.OUT) # #
-# GPIO.setup(20,GPIO.OUT) # 0
-# GPIO.setup(16,GPIO.OUT) # *
-# GPIO.setup(12,GPIO.OUT) # 9
-# GPIO.setup(7,GPIO.OUT) # 8
-# GPIO.setup(8,GPIO.OUT) # 7
-# GPIO.setup(25,GPIO.OUT) # 6
-# GPIO.setup(24,GPIO.OUT) # 5
-# GPIO.setup(23,GPIO.OUT) # 4
-# GPIO.setup(18,GPIO.OUT) # 3
-# GPIO.setup(15,GPIO.OUT) # 2
-# GPIO.setup(14,GPIO.OUT) # 1
+GPIO.setup(21,GPIO.OUT) # #
+GPIO.setup(20,GPIO.OUT) # 0
+GPIO.setup(16,GPIO.OUT) # *
+GPIO.setup(12,GPIO.OUT) # 9
+GPIO.setup(7,GPIO.OUT) # 8
+GPIO.setup(8,GPIO.OUT) # 7
+GPIO.setup(25,GPIO.OUT) # 6
+GPIO.setup(24,GPIO.OUT) # 5
+GPIO.setup(23,GPIO.OUT) # 4
+GPIO.setup(18,GPIO.OUT) # 3
+GPIO.setup(15,GPIO.OUT) # 2
+GPIO.setup(14,GPIO.OUT) # 1
 
 def allOff():
     pass
-    # GPIO.output(21,GPIO.LOW) # #
-    # GPIO.output(20,GPIO.LOW) # 0
-    # GPIO.output(16,GPIO.LOW) # *
-    # GPIO.output(12,GPIO.LOW) # 9
-    # GPIO.output(7,GPIO.LOW) # 8
-    # GPIO.output(8,GPIO.LOW) # 7
-    # GPIO.output(25,GPIO.LOW) # 6
-    # GPIO.output(24,GPIO.LOW) # 5
-    # GPIO.output(23,GPIO.LOW) # 4
-    # GPIO.output(18,GPIO.LOW) # 3
-    # GPIO.output(15,GPIO.LOW) # 2
-    # GPIO.output(14,GPIO.LOW) # 1
+    GPIO.output(21,GPIO.LOW) # #
+    GPIO.output(20,GPIO.LOW) # 0
+    GPIO.output(16,GPIO.LOW) # *
+    GPIO.output(12,GPIO.LOW) # 9
+    GPIO.output(7,GPIO.LOW) # 8
+    GPIO.output(8,GPIO.LOW) # 7
+    GPIO.output(25,GPIO.LOW) # 6
+    GPIO.output(24,GPIO.LOW) # 5
+    GPIO.output(23,GPIO.LOW) # 4
+    GPIO.output(18,GPIO.LOW) # 3
+    GPIO.output(15,GPIO.LOW) # 2
+    GPIO.output(14,GPIO.LOW) # 1
     print("allOff()")
 
 def allOn():
     print("allOn()")
-    # GPIO.output(21,GPIO.HIGH) # #
-    # GPIO.output(20,GPIO.HIGH) # 0
-    # GPIO.output(16,GPIO.HIGH) # *
-    # GPIO.output(12,GPIO.HIGH) # 9
-    # GPIO.output(7,GPIO.HIGH) # 8
-    # GPIO.output(8,GPIO.HIGH) # 7
-    # GPIO.output(25,GPIO.HIGH) # 6
-    # GPIO.output(24,GPIO.HIGH) # 5
-    # GPIO.output(23,GPIO.HIGH) # 4
-    # GPIO.output(18,GPIO.HIGH) # 3
-    # GPIO.output(15,GPIO.HIGH) # 2
-    # GPIO.output(14,GPIO.HIGH) # 1
+    GPIO.output(21,GPIO.HIGH) # #
+    GPIO.output(20,GPIO.HIGH) # 0
+    GPIO.output(16,GPIO.HIGH) # *
+    GPIO.output(12,GPIO.HIGH) # 9
+    GPIO.output(7,GPIO.HIGH) # 8
+    GPIO.output(8,GPIO.HIGH) # 7
+    GPIO.output(25,GPIO.HIGH) # 6
+    GPIO.output(24,GPIO.HIGH) # 5
+    GPIO.output(23,GPIO.HIGH) # 4
+    GPIO.output(18,GPIO.HIGH) # 3
+    GPIO.output(15,GPIO.HIGH) # 2
+    GPIO.output(14,GPIO.HIGH) # 1
 
 allOff()
 
@@ -74,7 +74,7 @@ class Director:
         self.menu = Menu(self)
 
 
-        self.screen = pygame.display.set_mode((1000,561), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN)
         pygame.display.set_caption("Neil Says")
         self.quit_flag = False
         self.clock = pygame.time.Clock()
@@ -91,6 +91,22 @@ class Director:
         self.setCharacter = False
         self.keyActive = ""
 
+        self.scores = []
+        self.highScores = 'highScores.dat'
+        self.add = 0
+        self.scoresLength = 0
+        self.recentScore = []
+
+        #music # init is in main loop at bottom of code
+
+        pygame.mixer.music.load(os.path.join("music", "8bit_shakeitoff.ogg"))
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
+
+        self.button_sound = pygame.mixer.Sound(os.path.join("music", "button_press.wav"))
+        self.button_error = pygame.mixer.Sound(os.path.join("music", "error.wav"))
+
+
 
     def loop(self):
         "Main game loop."
@@ -103,6 +119,7 @@ class Director:
                 if event.type == pygame.QUIT:
                     self.quit()
                 if event.type == pygame.KEYDOWN:
+                    #pygame.mixer.Sound.play(self.button_sound)
                     print(self.input)
                     if event.key == pygame.K_ESCAPE:
                         self.quit()
@@ -112,6 +129,7 @@ class Director:
                         print("hi mom")
                     if event.key == K_UP: #1 - arrow up
                         if self.sceneActive == "menu":
+                            pygame.mixer.Sound.play(self.button_sound)
                             if self.menu.menuButtonActive == "play":
                                 self.menu.menuButtonActive = "about"
                             elif self.menu.menuButtonActive == "rules":
@@ -121,19 +139,39 @@ class Director:
                             elif self.menu.menuButtonActive == "about":
                                 self.menu.menuButtonActive = "high"
                         elif self.sceneActive =="GamePlay":
+                            pygame.mixer.Sound.play(self.button_sound)
                             print("1")
                             self.input = self.input + "1"
                         elif self.sceneActive == "Name":
+                            pygame.mixer.Sound.play(self.button_sound)
                             if self.keyActive != "1":
                                 self.setCharacter = True
                             if self.enterName == "":
                                 pass
                             else:
+                                # first time you run this, "high_scores.dat" won't exist
+                                #   so we need to check for its existence before we load 
+                                #   our "database"
+                                if os.path.exists(self.highScores):
+                                    # "with" statements are very handy for opening files. 
+                                    with open(self.highScores,'rb') as rfp: 
+                                        self.scores = pickle.load(rfp)
+                                    # Notice that there's no "rfp.close()"
+                                    #   ... the "with" clause calls close() automatically! 
+
+                                self.high_scores = [self.level - 1, self.enterName]
+                                self.recentScore = [self.level - 1, self.enterName]
+                                self.scores.append(self.high_scores)
+                                # Now we "sync" our database
+                                with open(self.highScores,'wb') as wfp:
+                                    pickle.dump(self.scores, wfp)
+
                                 self.high = High(self)
                                 self.change_scene(self.high)
 
                     if event.key == K_DOWN: #2 - arrow down
                         if self.sceneActive == "menu":
+                            pygame.mixer.Sound.play(self.button_sound)
                             if self.menu.menuButtonActive == "play":
                                 self.leadLevel = LoadLevel(self)
                                 self.change_scene(self.leadLevel)
@@ -141,15 +179,17 @@ class Director:
                                 self.rules = Rules(self)
                                 self.change_scene(self.rules)
                             elif self.menu.menuButtonActive == "high":
-                                self.high = High(self)
-                                self.change_scene(self.high)
+                                self.high_menu = High_Menu(self)
+                                self.change_scene(self.high_menu)
                             elif self.menu.menuButtonActive == "about":
                                 self.about = About(self)
                                 self.change_scene(self.about)
                         elif self.sceneActive =="GamePlay":
+                            pygame.mixer.Sound.play(self.button_sound)
                             print("2")
                             self.input = self.input + "2"
                         elif self.sceneActive == "Name":
+                            pygame.mixer.Sound.play(self.button_sound)
                             self.cursor_ms_counter = 0
                             self.setCharacter = False
                             if self.keyActive != "2":
@@ -167,6 +207,7 @@ class Director:
                                 self.tempLetter = "a"
                     if event.key == K_RIGHT: #3 - arrow right 
                         if self.sceneActive == "menu":
+                            pygame.mixer.Sound.play(self.button_sound)
                             if self.menu.menuButtonActive == "play":
                                 self.menu.menuButtonActive = "rules"
                             elif self.menu.menuButtonActive == "rules":
@@ -176,9 +217,11 @@ class Director:
                             elif self.menu.menuButtonActive == "about":
                                 self.menu.menuButtonActive = "play"
                         elif self.sceneActive =="GamePlay":
+                            pygame.mixer.Sound.play(self.button_sound)
                             print("3")
                             self.input = self.input + "3"
                         elif self.sceneActive == "Name":
+                            pygame.mixer.Sound.play(self.button_sound)
                             self.cursor_ms_counter = 0
                             self.setCharacter = False
                             if self.keyActive != "3":
@@ -194,13 +237,24 @@ class Director:
                                 self.tempLetter = "3"
                             elif self.tempLetter == "3":
                                 self.tempLetter = "d"
+                        elif self.sceneActive == "High":
+                            pass
+                            # self.scoresLength = len("scoresarraylengthhere")
+                            # self.something = math.floor(self.scoresLength/10)
+                            # if self.add > self.something:
+                            #     self.add += 1
+                            # else:
+                            #     self.add = 0
+
                     if event.key == K_LEFT: #4 - arrow left
                         if self.sceneActive == "menu":
-                            pass
+                            pygame.mixer.Sound.play(self.button_error)
                         elif self.sceneActive =="GamePlay":
+                            pygame.mixer.Sound.play(self.button_sound)
                             print("4")
                             self.input = self.input + "4"
                         elif self.sceneActive == "Name":
+                            pygame.mixer.Sound.play(self.button_sound)
                             self.cursor_ms_counter = 0
                             self.setCharacter = False
                             if self.keyActive != "4":
@@ -218,51 +272,59 @@ class Director:
                                 self.tempLetter = "g"
                     if event.key == K_SPACE: #5 - space
                         if self.sceneActive == "menu":
-                            pass
+                            pygame.mixer.Sound.play(self.button_error)
                         elif self.sceneActive =="GamePlay":
+                            pygame.mixer.Sound.play(self.button_sound)
                             print("5")
                             self.input = self.input + "5"
                     if event.key == K_w: #6 - w
                         if self.sceneActive == "menu":
-                            pass
+                            pygame.mixer.Sound.play(self.button_error)
                         elif self.sceneActive =="GamePlay":
+                            pygame.mixer.Sound.play(self.button_sound)
                             print("6")
                             self.input = self.input + "6"
                     if event.key == K_a: #7 - a
                         if self.sceneActive == "menu":
-                            pass
+                            pygame.mixer.Sound.play(self.button_error)
                         elif self.sceneActive =="GamePlay":
+                            pygame.mixer.Sound.play(self.button_sound)
                             print("7")
                             self.input = self.input + "7"
                     if event.key == K_s: #8 - s
                         if self.sceneActive == "menu":
-                            pass
+                            pygame.mixer.Sound.play(self.button_error)
                         elif self.sceneActive =="GamePlay":
+                            pygame.mixer.Sound.play(self.button_sound)
                             print("8")
                             self.input = self.input + "8"
                     if event.key == K_d: #9 -  d
                         if self.sceneActive == "menu":
-                            pass
+                            pygame.mixer.Sound.play(self.button_error)
                         elif self.sceneActive =="GamePlay":
+                            pygame.mixer.Sound.play(self.button_sound)
                             print("9")
                             self.input = self.input + "9"
                     if event.key == K_f: #* - f
                         if self.sceneActive == "menu":
-                            pass
+                            pygame.mixer.Sound.play(self.button_error)
                         elif self.sceneActive =="GamePlay":
+                            pygame.mixer.Sound.play(self.button_sound)
                             print("*")
                             self.input = self.input + "*"
                     if event.key == K_g: #0 - g
                         if self.sceneActive == "menu":
-                            pass
+                            pygame.mixer.Sound.play(self.button_error)
                         elif self.sceneActive =="GamePlay":
+                            pygame.mixer.Sound.play(self.button_sound)
                             print("0")
                             self.input = self.input + "0"
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1: ## - left click
                         if self.sceneActive == "menu":
-                            pass
+                            pygame.mixer.Sound.play(self.button_error)
                         elif self.sceneActive =="GamePlay":
+                            pygame.mixer.Sound.play(self.button_sound)
                             print("#")
                             self.input = self.input + "#"
 
@@ -319,7 +381,7 @@ class Scene:
 
     def __init__(self, director):
         self.director = director
-        self.screen = pygame.display.set_mode((1000,561),pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((1920, 1080),pygame.FULLSCREEN)
         self.menuButtonActive = ""
 
         self.screenWidth = self.screen.get_rect().width
@@ -330,6 +392,11 @@ class Scene:
 
         self.white = (255, 255, 255)
         self.black = (0,0,0)
+
+        self.h0 = 200
+        self.h1 = 150 #font size
+        self.h3 = 70
+        self.top = 175
 
     def on_update(self,state=""):
         "Called from the director and defined on the subclass."
@@ -357,6 +424,19 @@ class Scene:
             print('Font Error, saw it coming')
             raise e
 
+    def text_to_screen_left(self, screen, text, x1, y1, size, color, font_type = "fonts/Roboto/Roboto-Light.ttf"):
+        try:
+
+            text = str(text)
+            font = pygame.font.Font(font_type, size)
+            text = font.render(text, True, color)
+            y2 = y1 - text.get_rect().height/2 
+            self.screen.blit(text, (x1, y2))
+
+        except Exception as e:
+            print('Font Error, saw it coming')
+            raise e
+
 
 class Menu(Scene):
     
@@ -373,12 +453,13 @@ class Menu(Scene):
         self.buttonColorActive = (18,49,96)
         self.buttonTextColor = (255,255,255)
         self.buttonTextColorActive = (203,219,220)
-        self.buttonFontSize = 50
+        self.buttonFontSize = 80
         
         self.buttonWidth = self.screenWidth/2
         self.buttonHeight = self.screenHeight/6
         self.buttonX = self.screen.get_rect().width/2 - self.buttonWidth/2
         self.vSpacing = 37.4
+        self.vOffset = (1080 - (self.buttonHeight*4 + self.vSpacing*3))/2
 
         self.screen.fill((98,200,196))
         
@@ -415,45 +496,45 @@ class Menu(Scene):
             
     def playButton(self, state):
         if state == "active":
-            buttonY = self.vSpacing
+            buttonY = self.vOffset
             playBTN = pygame.draw.rect(self.screen, self.buttonColorActive, [self.buttonX, buttonY, self.buttonWidth, self.buttonHeight])
-            playText = self.text_to_screen(self.screen, 'PLAY', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColorActive)
+            playText = self.text_to_screen(self.screen, 'Play', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColorActive)
         elif state =="inactive":
-            buttonY = self.vSpacing
+            buttonY = self.vOffset
             playBTN = pygame.draw.rect(self.screen, self.buttonColor, [self.buttonX, buttonY, self.buttonWidth, self.buttonHeight])
-            playText = self.text_to_screen(self.screen, 'PLAY', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColor)
+            playText = self.text_to_screen(self.screen, 'Play', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColor)
 
 
     def rulesButton(self, state):
         if state == "active":
-            buttonY = self.buttonHeight*1 + self.vSpacing*2
+            buttonY = self.buttonHeight*1 + self.vSpacing*1 + self.vOffset
             rulesBTN = pygame.draw.rect(self.screen, self.buttonColorActive, [self.buttonX, buttonY, self.buttonWidth, self.buttonHeight])
-            rulesText = self.text_to_screen(self.screen, 'RULES', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColorActive)
+            rulesText = self.text_to_screen(self.screen, 'Rules', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColorActive)
         elif state =="inactive":
-            buttonY = self.buttonHeight*1 + self.vSpacing*2
+            buttonY = self.buttonHeight*1 + self.vSpacing*1 + self.vOffset
             rulesBTN = pygame.draw.rect(self.screen, self.buttonColor, [self.buttonX, buttonY, self.buttonWidth, self.buttonHeight])
-            rulesText = self.text_to_screen(self.screen, 'RULES', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColor)
+            rulesText = self.text_to_screen(self.screen, 'Rules', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColor)
             
     def highButton(self, state):
         if state == "active":
-            buttonY = self.buttonHeight*2 + self.vSpacing*3
+            buttonY = self.buttonHeight*2 + self.vSpacing*2 + self.vOffset
             highBTN = pygame.draw.rect(self.screen, self.buttonColorActive, [self.buttonX, buttonY, self.buttonWidth, self.buttonHeight])
-            highText = self.text_to_screen(self.screen, 'HIGH SCORES', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColorActive)
+            highText = self.text_to_screen(self.screen, 'High Scores', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColorActive)
         elif state =="inactive":
-            buttonY = self.buttonHeight*2 + self.vSpacing*3
+            buttonY = self.buttonHeight*2 + self.vSpacing*2 + self.vOffset
             highBTN = pygame.draw.rect(self.screen, self.buttonColor, [self.buttonX, buttonY, self.buttonWidth, self.buttonHeight])
-            highText = self.text_to_screen(self.screen, 'HIGH SCORES', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColor)
+            highText = self.text_to_screen(self.screen, 'High Scores', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColor)
 
 
     def aboutButton(self, state):
         if state == "active":
-            buttonY = self.buttonHeight*3 + self.vSpacing*4
+            buttonY = self.buttonHeight*3 + self.vSpacing*3 + self.vOffset
             aboutBTN = pygame.draw.rect(self.screen, self.buttonColorActive, [self.buttonX, buttonY, self.buttonWidth, self.buttonHeight])
-            aboutText = self.text_to_screen(self.screen, 'ABOUT', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColorActive)
+            aboutText = self.text_to_screen(self.screen, 'About', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColorActive)
         elif state =="inactive":
-            buttonY = self.buttonHeight*3 + self.vSpacing*4
+            buttonY = self.buttonHeight*3 + self.vSpacing*3 + self.vOffset
             aboutBTN = pygame.draw.rect(self.screen, self.buttonColor, [self.buttonX, buttonY, self.buttonWidth, self.buttonHeight])
-            aboutText = self.text_to_screen(self.screen, 'ABOUT', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColor)
+            aboutText = self.text_to_screen(self.screen, 'About', self.buttonWidth, (self.buttonHeight/2 + buttonY), self.buttonFontSize, self.buttonTextColor)
         
 
     
@@ -471,9 +552,9 @@ class LoadLevel(Scene):
         self.screen.fill((35,108,135))
         ##pygame.display.update()
 
-        self.text_to_screen(self.screen, 'Level', self.screenWidth/2, 100, 100, (0, 000, 000))
+        self.text_to_screen(self.screen, 'Level', self.screenWidth/2, self.top, self.h1, (0, 000, 000))
 
-        self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, 200, self.white)
+        self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, self.h0, self.white)
 
         allOff()
 
@@ -488,9 +569,9 @@ class LoadLevel(Scene):
         thetime = float(time.clock() - director.start_time)
 
         self.screen.fill((35,108,135))
-        self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, 200, self.white)
+        self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, self.h0, self.white)
 
-        self.text_to_screen(self.screen, 'Level', self.screenWidth/2, 100, 100, self.white)
+        self.text_to_screen(self.screen, 'Level', self.screenWidth/2, self.top, self.h1, self.white)
         
 
         if(thetime >= 0.6):
@@ -512,10 +593,11 @@ class GamePlay(Scene):
         
         self.screen.fill(self.bColor)
 
-        self.text_to_screen(self.screen, 'Neil Says...', self.screenWidth/2, 100, 100, self.white)
+        self.text_to_screen(self.screen, 'Neil Says...', self.screenWidth/2, self.top, self.h1, self.white)
         self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.white)
         self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.white)
         
+        self.lightsDone = False
     def on_update(self,state):
         pass
 
@@ -526,6 +608,60 @@ class GamePlay(Scene):
         self.director = director
         self.answer = self.words[self.director.level][3]
 
+        self.raw = list(self.words[self.director.level][0])
+        while not self.lightsDone:
+            for x in range(0, len(self.raw)):
+                if self.raw[x] == "2":
+                    print("2")
+                    director.allOff()
+                    director.GPIO.output(15,GPIO.HIGH) # 2
+                elif self.raw[x] == "3":
+                    print("3")
+                    director.allOff()
+                    director.GPIO.output(18,GPIO.HIGH) # 3
+                elif self.raw[x] == "4":
+                    print("4")
+                    director.allOff()
+                    director.GPIO.output(23,GPIO.HIGH) # 4
+                elif self.raw[x] == "5":
+                    print("5")
+                    director.allOff()
+                    director.GPIO.output(24,GPIO.HIGH) # 5
+                elif self.raw[x] == "6":
+                    print("6")
+                    director.allOff()
+                    director.GPIO.output(25,GPIO.HIGH) # 6
+                elif self.raw[x] == "7":
+                    print("7")
+                    director.allOff()
+                    director.GPIO.output(8,GPIO.HIGH) # 7
+                elif self.raw[x] == "8":
+                    print("8")
+                    director.allOff()
+                    director.GPIO.output(7,GPIO.HIGH) # 8
+                elif self.raw[x] == "9":
+                    print("9")
+                    director.allOff()
+                    director.GPIO.output(12,GPIO.HIGH) # 9
+                elif self.raw[x] == "0":
+                    print("0")
+                    director.allOff()
+                    director.GPIO.output(20,GPIO.HIGH) # 0
+                elif self.raw[x] == "*":
+                    print("*")
+                    director.allOff()
+                    director.GPIO.output(16,GPIO.HIGH) # *
+                elif self.raw[x] == "#":
+                    print("#")
+                    director.allOff()
+                    director.GPIO.output(21,GPIO.HIGH) # #
+                elif self.raw[x] == "1":
+                    print("1")
+                    director.allOff()
+                    director.GPIO.output(14,GPIO.HIGH) # 1
+            if x == len(self.raw) - 1:
+                self.lightsDone = True
+                    director.allOff()
 
         if len(self.updateInput) == len(self.words[self.director.level][0]):
             if self.updateInput == self.words[self.director.level][0]:
@@ -533,7 +669,7 @@ class GamePlay(Scene):
                 self.screen.fill(self.bColor)
                 self.answer = self.words[self.director.level][2]
 
-                self.text_to_screen(self.screen, 'Neil Says...', self.screenWidth/2, 100, 100, self.black)
+                self.text_to_screen(self.screen, 'Neil Says...', self.screenWidth/2, self.top, self.h1, self.black)
                 self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.white)
                 self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.white)
     
@@ -551,7 +687,7 @@ class GamePlay(Scene):
                 self.screen.fill(self.bColor)
                 self.answer = self.words[self.director.level][2]
 
-                self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, 100, 100, self.white)
+                self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, self.top, self.h1, self.white)
                 self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.white)
                 self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.white)
     
@@ -569,7 +705,7 @@ class GamePlay(Scene):
         self.updateInput = self.director.input
         self.screen.fill(self.bColor)
     
-        self.text_to_screen(self.screen, 'Neil Says...', self.screenWidth/2, 100, 100, self.white)
+        self.text_to_screen(self.screen, 'Neil Says...', self.screenWidth/2, self.top, self.h1, self.white)
         self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.white)
         self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.white)
 
@@ -635,7 +771,7 @@ class Rules(Scene):
         self.screen.fill((35,108,135))
         ##pygame.display.update()
 
-        self.text_to_screen(self.screen, 'Rules', self.screenWidth/2, 100, 100, self.white)
+        self.text_to_screen(self.screen, 'Rules', self.screenWidth/2, self.top, self.h1, self.white)
 
         allOff()
 
@@ -660,57 +796,32 @@ class High(Scene):
         self.screen.fill((35,108,135))
         
         ##save high scores to external file. maybe txt? or maybe and array in a .py (so the array can be ordered)
-        self.text_to_screen(self.screen, 'High Scores', self.screenWidth/2, 100, 100, self.white)
-        self.highScores = 'highScores.dat'
-        self.scores = []
+        self.text_to_screen(self.screen, 'High Scores', self.screenWidth/2, self.top, self.h1, self.white)
+        
 
-        # self.scores.append([director.level - 1, director.enterName])
+       
 
-        #works but does not store values after program closes
-        # self.scores = scores.Scores(self)
-        # self.scores.scores.append([director.level - 1, director.enterName])
-        # print(self.scores.scores)
 
-        # try:
-        #     with open('score.dat', 'rb') as file:
-        #         self.scores = pickle.load(file)
-        # except:
-        #     score = 0
-
-        # print(self.scores)
-
-        # self.scores = [director.level - 1, director.enterName]
-
-        # # save the score
-        # with open('score.dat', 'a+') as file:
-        #     pickle.dump(self.scores, file)
-
-        # print(self.scores)
-
-        # first time you run this, "high_scores.dat" won't exist
-        #   so we need to check for its existence before we load 
-        #   our "database"
-        if os.path.exists(self.highScores):
-            # "with" statements are very handy for opening files. 
-            with open(self.highScores,'rb') as rfp: 
-                self.scores = pickle.load(rfp)
-            # Notice that there's no "rfp.close()"
-            #   ... the "with" clause calls close() automatically! 
-
-        self.high_scores = [director.level - 1, director.enterName]
-        self.scores.append(self.high_scores)
-
-        # Now we "sync" our database
-        with open(self.highScores,'wb') as wfp:
-            pickle.dump(self.scores, wfp)
 
         # Re-load our database
-        with open(self.highScores,'rb') as rfp:
-            self.scores = pickle.load(rfp)
+        with open(director.highScores,'rb') as rfp:
+            director.scores = pickle.load(rfp)
 
-        print(self.scores)
+        print(director.scores)
+        
+
+        # sort list with key
+        director.scores.sort(key=self.takeSecond, reverse=True)
+        print(director.scores)
+        director.add = 0
+        self.vSpacing = 70
+        self.vOffset = self.top + 150
+
 
         allOn()
+    def takeSecond(self,elem):
+            return elem[0]
+
     def on_update(self,state):
         pass
 
@@ -718,7 +829,75 @@ class High(Scene):
         pass
 
     def on_draw(self, screen, director):
+        #pass
+        self.screen.fill((35,108,135))
+        
+        ##save high scores to external file. maybe txt? or maybe and array in a .py (so the array can be ordered)
+        self.text_to_screen(self.screen, 'High Scores', self.screenWidth/2, self.top, self.h1, self.white)
+
+        for x in range(0, 10):
+            #self.text_to_screen(self.screen, str(director.scores[x][0]) + "....." + str(director.scores[x][1]), self.screenWidth/2, self.vOffset + self.vSpacing*x, self.h3, self.white)
+            if x < 9:
+                self.text_to_screen_left(self.screen, str(director.scores[x][0]), self.screenWidth/2 - 125, self.vOffset + self.vSpacing*x, self.h3, self.white)
+                self.text_to_screen_left(self.screen, str(director.scores[x][1]), self.screenWidth/2 + 100, self.vOffset + self.vSpacing*x, self.h3, self.white)
+            else:
+                self.text_to_screen_left(self.screen, str(director.recentScore[0]), self.screenWidth/2 - 125, self.vOffset + self.vSpacing*x, self.h3, self.black)
+                self.text_to_screen_left(self.screen, str(director.recentScore[1]), self.screenWidth/2 + 100, self.vOffset + self.vSpacing*x, self.h3, self.black)
+            
+class High_Menu(Scene):
+
+    def __init__(self, director):
+
+        Scene.__init__(self, director)
+        director.sceneActive = "High Menu"
+
+        self.screen.fill((35,108,135))
+        
+        ##save high scores to external file. maybe txt? or maybe and array in a .py (so the array can be ordered)
+        self.text_to_screen(self.screen, 'High Scores', self.screenWidth/2, self.top, self.h1, self.white)
+        
+
+       
+
+
+
+        # Re-load our database
+        with open(director.highScores,'rb') as rfp:
+            director.scores = pickle.load(rfp)
+
+        print(director.scores)
+        
+
+        # sort list with key
+        director.scores.sort(key=self.takeSecond, reverse=True)
+        print(director.scores)
+        director.add = 0
+        self.vSpacing = 70
+        self.vOffset = self.top + 150
+
+
+        allOn()
+    def takeSecond(self,elem):
+            return elem[0]
+
+    def on_update(self,state):
         pass
+
+    def on_event(self):
+        pass
+
+    def on_draw(self, screen, director):
+        #pass
+        self.screen.fill((35,108,135))
+        
+        ##save high scores to external file. maybe txt? or maybe and array in a .py (so the array can be ordered)
+        self.text_to_screen(self.screen, 'High Scores', self.screenWidth/2, self.top, self.h1, self.white)
+
+        for x in range(0, 10):
+            #self.text_to_screen(self.screen, str(director.scores[x][0]) + "....." + str(director.scores[x][1]), self.screenWidth/2, self.vOffset + self.vSpacing*x, self.h3, self.white)
+            
+            self.text_to_screen_left(self.screen, str(director.scores[x][0]), self.screenWidth/2 - 125, self.vOffset + self.vSpacing*x, self.h3, self.white)
+            self.text_to_screen_left(self.screen, str(director.scores[x][1]), self.screenWidth/2 + 100, self.vOffset + self.vSpacing*x, self.h3, self.white)
 
 
 class About(Scene):
@@ -730,7 +909,7 @@ class About(Scene):
 
         self.screen.fill((35,108,135))
 
-        self.text_to_screen(self.screen, 'About', self.screenWidth/2, 100, 100, self.white)
+        self.text_to_screen(self.screen, 'About', self.screenWidth/2, self.top, self.h1, self.white)
 
         allOff()
     def on_update(self,state):
@@ -758,5 +937,6 @@ def main():
 
 
 if __name__ == '__main__':
+    pygame.mixer.pre_init(44100,16,2,4096)
     pygame.init()
     main()
