@@ -695,43 +695,43 @@ class GamePlay(Scene):
                 allOff()
             self.director.input = ""
 
+        if lightsDone
+            if len(self.updateInput) == len(self.words[self.director.level][0]):
+                if self.updateInput == self.words[self.director.level][0]:
+                    self.bColor = ((101,196,121)) #GREEN
+                    self.screen.fill(self.bColor)
+                    self.answer = self.words[self.director.level][2]
 
-        if len(self.updateInput) == len(self.words[self.director.level][0]):
-            if self.updateInput == self.words[self.director.level][0]:
-                self.bColor = ((101,196,121)) #GREEN
-                self.screen.fill(self.bColor)
-                self.answer = self.words[self.director.level][2]
+                    self.text_to_screen(self.screen, 'Neil Says...', self.screenWidth/2, self.top, self.h1, self.black)
+                    self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.white)
+                    self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.white)
+        
+                    print("correct! " + self.words[self.director.level][1])
+                    pygame.display.update()
+                    pause(2000)
+                    self.director.input = ""
+                    director.start_time = time.clock()
+                    self.director.level = self.director.level + 1
+                    self.changeScene = True
+                    self.sceneMessage = "Load Level"
+                    self.bColor = (35,108,135)
+                else:
+                    self.bColor = ((196,105,101)) #RED
+                    self.screen.fill(self.bColor)
+                    self.answer = self.words[self.director.level][2]
 
-                self.text_to_screen(self.screen, 'Neil Says...', self.screenWidth/2, self.top, self.h1, self.black)
-                self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.white)
-                self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.white)
-    
-                print("correct! " + self.words[self.director.level][1])
-                pygame.display.update()
-                pause(2000)
-                self.director.input = ""
-                director.start_time = time.clock()
-                self.director.level = self.director.level + 1
-                self.changeScene = True
-                self.sceneMessage = "Load Level"
-                self.bColor = (35,108,135)
-            else:
-                self.bColor = ((196,105,101)) #RED
-                self.screen.fill(self.bColor)
-                self.answer = self.words[self.director.level][2]
-
-                self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, self.top, self.h1, self.white)
-                self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.white)
-                self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.white)
-    
-                print("wrong! " + self.words[self.director.level][1])
-                pygame.display.update()
-                pause(2000)
-                self.director.input = ""
-                director.start_time = time.clock()
-                self.changeScene = True
-                self.sceneMessage = "Name"
-                self.bColor = (35,108,135)
+                    self.text_to_screen(self.screen, 'Game Play', self.screenWidth/2, self.top, self.h1, self.white)
+                    self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.white)
+                    self.displayInput = self.text_to_screen(self.screen, self.updateInput, self.screenWidth/2, self.screenHeight/2 + 200, 50, self.white)
+        
+                    print("wrong! " + self.words[self.director.level][1])
+                    pygame.display.update()
+                    pause(2000)
+                    self.director.input = ""
+                    director.start_time = time.clock()
+                    self.changeScene = True
+                    self.sceneMessage = "Name"
+                    self.bColor = (35,108,135)
      
 
 
