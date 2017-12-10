@@ -617,50 +617,62 @@ class GamePlay(Scene):
                     print("2")
                     allOff()
                     GPIO.output(15,GPIO.HIGH) # 2
+                    time.sleep(1)
                 elif self.raw[x] == "3":
                     print("3")
                     allOff()
                     GPIO.output(18,GPIO.HIGH) # 3
+                    time.sleep(1)
                 elif self.raw[x] == "4":
                     print("4")
                     allOff()
                     GPIO.output(23,GPIO.HIGH) # 4
+                    time.sleep(1)
                 elif self.raw[x] == "5":
                     print("5")
                     allOff()
                     GPIO.output(24,GPIO.HIGH) # 5
+                    time.sleep(1)
                 elif self.raw[x] == "6":
                     print("6")
                     allOff()
                     GPIO.output(25,GPIO.HIGH) # 6
+                    time.sleep(1)
                 elif self.raw[x] == "7":
                     print("7")
                     allOff()
                     GPIO.output(8,GPIO.HIGH) # 7
+                    time.sleep(1)
                 elif self.raw[x] == "8":
                     print("8")
                     allOff()
                     GPIO.output(7,GPIO.HIGH) # 8
+                    time.sleep(1)
                 elif self.raw[x] == "9":
                     print("9")
                     allOff()
                     GPIO.output(12,GPIO.HIGH) # 9
+                    time.sleep(1)
                 elif self.raw[x] == "0":
                     print("0")
                     allOff()
                     GPIO.output(20,GPIO.HIGH) # 0
+                    time.sleep(1)
                 elif self.raw[x] == "*":
                     print("*")
                     allOff()
                     GPIO.output(16,GPIO.HIGH) # *
+                    time.sleep(1)
                 elif self.raw[x] == "#":
                     print("#")
                     allOff()
                     GPIO.output(21,GPIO.HIGH) # #
+                    time.sleep(1)
                 elif self.raw[x] == "1":
                     print("1")
                     allOff()
                     GPIO.output(14,GPIO.HIGH) # 1
+                    time.sleep(1)
             if x == len(self.raw) - 1:
                 self.lightsDone = True
                 allOff()
