@@ -693,8 +693,8 @@ class GamePlay(Scene):
                         time.sleep(1)
                 self.lightsDone = True
                 allOff()
+                self.director.input = ""
 
-        self.director.input = ""
 
         if len(self.updateInput) == len(self.words[self.director.level][0]):
             if self.updateInput == self.words[self.director.level][0]:
