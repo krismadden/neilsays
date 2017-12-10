@@ -108,7 +108,7 @@ class Director:
         self.button_error = pygame.mixer.Sound(os.path.join("music", "error.wav"))
 
         #LED setup
-        self.GPIO.setmode(GPIO.BCM) #sets to pin number position
+        self.GPIO.setmode(self.GPIO.BCM) #sets to pin number position
         self.GPIO.setwarnings(False)
 
 
