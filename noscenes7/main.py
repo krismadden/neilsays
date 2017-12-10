@@ -20,49 +20,49 @@ GPIO.setmode(GPIO.BCM) #sets to pin number position
 GPIO.setwarnings(False)
 
 
-GPIO.setup(21,GPIO.OUT) # #
-GPIO.setup(20,GPIO.OUT) # 0
-GPIO.setup(16,GPIO.OUT) # *
-GPIO.setup(12,GPIO.OUT) # 9
-GPIO.setup(7,GPIO.OUT) # 8
-GPIO.setup(8,GPIO.OUT) # 7
-GPIO.setup(25,GPIO.OUT) # 6
-GPIO.setup(24,GPIO.OUT) # 5
-GPIO.setup(23,GPIO.OUT) # 4
-GPIO.setup(18,GPIO.OUT) # 3
-GPIO.setup(15,GPIO.OUT) # 2
-GPIO.setup(14,GPIO.OUT) # 1
+GPIO.setup(21,self.GPIO.OUT) # #
+GPIO.setup(20,self.GPIO.OUT) # 0
+GPIO.setup(16,self.GPIO.OUT) # *
+GPIO.setup(12,self.GPIO.OUT) # 9
+GPIO.setup(7,self.GPIO.OUT) # 8
+GPIO.setup(8,self.GPIO.OUT) # 7
+GPIO.setup(25,self.GPIO.OUT) # 6
+GPIO.setup(24,self.GPIO.OUT) # 5
+GPIO.setup(23,self.GPIO.OUT) # 4
+GPIO.setup(18,self.GPIO.OUT) # 3
+GPIO.setup(15,self.GPIO.OUT) # 2
+GPIO.setup(14,self.GPIO.OUT) # 1
 
 def allOff():
     pass
-    GPIO.output(21,GPIO.LOW) # #
-    GPIO.output(20,GPIO.LOW) # 0
-    GPIO.output(16,GPIO.LOW) # *
-    GPIO.output(12,GPIO.LOW) # 9
-    GPIO.output(7,GPIO.LOW) # 8
-    GPIO.output(8,GPIO.LOW) # 7
-    GPIO.output(25,GPIO.LOW) # 6
-    GPIO.output(24,GPIO.LOW) # 5
-    GPIO.output(23,GPIO.LOW) # 4
-    GPIO.output(18,GPIO.LOW) # 3
-    GPIO.output(15,GPIO.LOW) # 2
-    GPIO.output(14,GPIO.LOW) # 1
+    self.GPIO.OUTput(21,GPIO.LOW) # #
+    self.GPIO.OUTput(20,GPIO.LOW) # 0
+    self.GPIO.OUTput(16,GPIO.LOW) # *
+    self.GPIO.OUTput(12,GPIO.LOW) # 9
+    self.GPIO.OUTput(7,GPIO.LOW) # 8
+    self.GPIO.OUTput(8,GPIO.LOW) # 7
+    self.GPIO.OUTput(25,GPIO.LOW) # 6
+    self.GPIO.OUTput(24,GPIO.LOW) # 5
+    self.GPIO.OUTput(23,GPIO.LOW) # 4
+    self.GPIO.OUTput(18,GPIO.LOW) # 3
+    self.GPIO.OUTput(15,GPIO.LOW) # 2
+    self.GPIO.OUTput(14,GPIO.LOW) # 1
     print("allOff()")
 
 def allOn():
     print("allOn()")
-    GPIO.output(21,GPIO.HIGH) # #
-    GPIO.output(20,GPIO.HIGH) # 0
-    GPIO.output(16,GPIO.HIGH) # *
-    GPIO.output(12,GPIO.HIGH) # 9
-    GPIO.output(7,GPIO.HIGH) # 8
-    GPIO.output(8,GPIO.HIGH) # 7
-    GPIO.output(25,GPIO.HIGH) # 6
-    GPIO.output(24,GPIO.HIGH) # 5
-    GPIO.output(23,GPIO.HIGH) # 4
-    GPIO.output(18,GPIO.HIGH) # 3
-    GPIO.output(15,GPIO.HIGH) # 2
-    GPIO.output(14,GPIO.HIGH) # 1
+    self.GPIO.OUTput(21,GPIO.HIGH) # #
+    self.GPIO.OUTput(20,GPIO.HIGH) # 0
+    self.GPIO.OUTput(16,GPIO.HIGH) # *
+    self.GPIO.OUTput(12,GPIO.HIGH) # 9
+    self.GPIO.OUTput(7,GPIO.HIGH) # 8
+    self.GPIO.OUTput(8,GPIO.HIGH) # 7
+    self.GPIO.OUTput(25,GPIO.HIGH) # 6
+    self.GPIO.OUTput(24,GPIO.HIGH) # 5
+    self.GPIO.OUTput(23,GPIO.HIGH) # 4
+    self.GPIO.OUTput(18,GPIO.HIGH) # 3
+    self.GPIO.OUTput(15,GPIO.HIGH) # 2
+    self.GPIO.OUTput(14,GPIO.HIGH) # 1
 
 allOff()
 
@@ -112,18 +112,18 @@ class Director:
         self.GPIO.setwarnings(False)
 
 
-        self.GPIO.setup(21,GPIO.OUT) # #
-        self.GPIO.setup(20,GPIO.OUT) # 0
-        self.GPIO.setup(16,GPIO.OUT) # *
-        self.GPIO.setup(12,GPIO.OUT) # 9
-        self.GPIO.setup(7,GPIO.OUT) # 8
-        self.GPIO.setup(8,GPIO.OUT) # 7
-        self.GPIO.setup(25,GPIO.OUT) # 6
-        self.GPIO.setup(24,GPIO.OUT) # 5
-        self.GPIO.setup(23,GPIO.OUT) # 4
-        self.GPIO.setup(18,GPIO.OUT) # 3
-        self.GPIO.setup(15,GPIO.OUT) # 2
-        self.GPIO.setup(14,GPIO.OUT) # 1
+        self.GPIO.setup(21,self.GPIO.OUT) # #
+        self.GPIO.setup(20,self.GPIO.OUT) # 0
+        self.GPIO.setup(16,self.GPIO.OUT) # *
+        self.GPIO.setup(12,self.GPIO.OUT) # 9
+        self.GPIO.setup(7,self.GPIO.OUT) # 8
+        self.GPIO.setup(8,self.GPIO.OUT) # 7
+        self.GPIO.setup(25,self.GPIO.OUT) # 6
+        self.GPIO.setup(24,self.GPIO.OUT) # 5
+        self.GPIO.setup(23,self.GPIO.OUT) # 4
+        self.GPIO.setup(18,self.GPIO.OUT) # 3
+        self.GPIO.setup(15,self.GPIO.OUT) # 2
+        self.GPIO.setup(14,self.GPIO.OUT) # 1
 
 
         self.allOff()
@@ -397,33 +397,33 @@ class Director:
 
     def allOff():
         #pass
-        self.GPIO.output(21,GPIO.LOW) # #
-        self.GPIO.output(20,GPIO.LOW) # 0
-        self.GPIO.output(16,GPIO.LOW) # *
-        self.GPIO.output(12,GPIO.LOW) # 9
-        self.GPIO.output(7,GPIO.LOW) # 8
-        self.GPIO.output(8,GPIO.LOW) # 7
-        self.GPIO.output(25,GPIO.LOW) # 6
-        self.GPIO.output(24,GPIO.LOW) # 5
-        self.GPIO.output(23,GPIO.LOW) # 4
-        self.GPIO.output(18,GPIO.LOW) # 3
-        self.GPIO.output(15,GPIO.LOW) # 2
-        self.GPIO.output(14,GPIO.LOW) # 1
+        self.self.GPIO.OUTput(21,GPIO.LOW) # #
+        self.self.GPIO.OUTput(20,GPIO.LOW) # 0
+        self.self.GPIO.OUTput(16,GPIO.LOW) # *
+        self.self.GPIO.OUTput(12,GPIO.LOW) # 9
+        self.self.GPIO.OUTput(7,GPIO.LOW) # 8
+        self.self.GPIO.OUTput(8,GPIO.LOW) # 7
+        self.self.GPIO.OUTput(25,GPIO.LOW) # 6
+        self.self.GPIO.OUTput(24,GPIO.LOW) # 5
+        self.self.GPIO.OUTput(23,GPIO.LOW) # 4
+        self.self.GPIO.OUTput(18,GPIO.LOW) # 3
+        self.self.GPIO.OUTput(15,GPIO.LOW) # 2
+        self.self.GPIO.OUTput(14,GPIO.LOW) # 1
         print("allOff()")
 
     def allOn():
         print("allOn()")
-        self.GPIO.output(21,GPIO.HIGH) # #
-        self.GPIO.output(20,GPIO.HIGH) # 0
-        self.GPIO.output(16,GPIO.HIGH) # *
-        self.GPIO.output(12,GPIO.HIGH) # 9
-        self.GPIO.output(7,GPIO.HIGH) # 8
-        self.GPIO.output(8,GPIO.HIGH) # 7
-        self.GPIO.output(25,GPIO.HIGH) # 6
-        self.GPIO.output(24,GPIO.HIGH) # 5
-        self.GPIO.output(23,GPIO.HIGH) # 4
-        self.GPIO.output(18,GPIO.HIGH) # 3
-        self.GPIO.output(15,GPIO.HIGH) # 2
+        self.self.GPIO.OUTput(21,GPIO.HIGH) # #
+        self.self.GPIO.OUTput(20,GPIO.HIGH) # 0
+        self.self.GPIO.OUTput(16,GPIO.HIGH) # *
+        self.self.GPIO.OUTput(12,GPIO.HIGH) # 9
+        self.self.GPIO.OUTput(7,GPIO.HIGH) # 8
+        self.self.GPIO.OUTput(8,GPIO.HIGH) # 7
+        self.self.GPIO.OUTput(25,GPIO.HIGH) # 6
+        self.self.GPIO.OUTput(24,GPIO.HIGH) # 5
+        self.self.GPIO.OUTput(23,GPIO.HIGH) # 4
+        self.self.GPIO.OUTput(18,GPIO.HIGH) # 3
+        self.self.GPIO.OUTput(15,GPIO.HIGH) # 2
         Gself.PIO.output(14,GPIO.HIGH) # 1
 
 
@@ -666,51 +666,51 @@ class GamePlay(Scene):
                 if self.raw[x] == "2":
                     print("2")
                     director.allOff()
-                    director.GPIO.output(15,GPIO.HIGH) # 2
+                    director.self.GPIO.OUTput(15,GPIO.HIGH) # 2
                 elif self.raw[x] == "3":
                     print("3")
                     director.allOff()
-                    director.GPIO.output(18,GPIO.HIGH) # 3
+                    director.self.GPIO.OUTput(18,GPIO.HIGH) # 3
                 elif self.raw[x] == "4":
                     print("4")
                     director.allOff()
-                    director.GPIO.output(23,GPIO.HIGH) # 4
+                    director.self.GPIO.OUTput(23,GPIO.HIGH) # 4
                 elif self.raw[x] == "5":
                     print("5")
                     director.allOff()
-                    director.GPIO.output(24,GPIO.HIGH) # 5
+                    director.self.GPIO.OUTput(24,GPIO.HIGH) # 5
                 elif self.raw[x] == "6":
                     print("6")
                     director.allOff()
-                    director.GPIO.output(25,GPIO.HIGH) # 6
+                    director.self.GPIO.OUTput(25,GPIO.HIGH) # 6
                 elif self.raw[x] == "7":
                     print("7")
                     director.allOff()
-                    director.GPIO.output(8,GPIO.HIGH) # 7
+                    director.self.GPIO.OUTput(8,GPIO.HIGH) # 7
                 elif self.raw[x] == "8":
                     print("8")
                     director.allOff()
-                    director.GPIO.output(7,GPIO.HIGH) # 8
+                    director.self.GPIO.OUTput(7,GPIO.HIGH) # 8
                 elif self.raw[x] == "9":
                     print("9")
                     director.allOff()
-                    director.GPIO.output(12,GPIO.HIGH) # 9
+                    director.self.GPIO.OUTput(12,GPIO.HIGH) # 9
                 elif self.raw[x] == "0":
                     print("0")
                     director.allOff()
-                    director.GPIO.output(20,GPIO.HIGH) # 0
+                    director.self.GPIO.OUTput(20,GPIO.HIGH) # 0
                 elif self.raw[x] == "*":
                     print("*")
                     director.allOff()
-                    director.GPIO.output(16,GPIO.HIGH) # *
+                    director.self.GPIO.OUTput(16,GPIO.HIGH) # *
                 elif self.raw[x] == "#":
                     print("#")
                     director.allOff()
-                    director.GPIO.output(21,GPIO.HIGH) # #
+                    director.self.GPIO.OUTput(21,GPIO.HIGH) # #
                 elif self.raw[x] == "1":
                     print("1")
                     director.allOff()
-                    director.GPIO.output(14,GPIO.HIGH) # 1
+                    director.self.GPIO.OUTput(14,GPIO.HIGH) # 1
             if x == len(self.raw) - 1:
                 self.lightsDone = True
                 director.allOff()
