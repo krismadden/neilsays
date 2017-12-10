@@ -714,7 +714,7 @@ class GamePlay(Scene):
                     GPIO.output(14,GPIO.HIGH) # 1
                     time.sleep(1)
             if x == len(self.raw) - 1:
-                if x != 0
+                if x > 0
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                 self.lightsDone = True
