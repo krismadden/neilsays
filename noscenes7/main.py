@@ -589,7 +589,8 @@ class GamePlay(Scene):
         self.answer = self.words[self.director.level][3]
         self.updateInput = self.director.input
         self.bColor = (35,108,135)
-        print(self.updateInput)
+
+
         Scene.__init__(self, director)
         director.sceneActive = "GamePlay"
         
@@ -692,6 +693,8 @@ class GamePlay(Scene):
                         time.sleep(1)
                 self.lightsDone = True
                 allOff()
+
+        self.director.input = ""
 
         if len(self.updateInput) == len(self.words[self.director.level][0]):
             if self.updateInput == self.words[self.director.level][0]:
