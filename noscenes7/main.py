@@ -661,7 +661,7 @@ class GamePlay(Scene):
                     director.GPIO.output(14,GPIO.HIGH) # 1
             if x == len(self.raw) - 1:
                 self.lightsDone = True
-                    director.allOff()
+                director.allOff()
 
         if len(self.updateInput) == len(self.words[self.director.level][0]):
             if self.updateInput == self.words[self.director.level][0]:
