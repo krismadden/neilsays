@@ -8,7 +8,7 @@ import pygame, sys, time
 from pygame.locals import *
 import os
 # import RPi.GPIO as GPIO
-#import scores
+import pickle
 
 from pygame_functions import *
 
@@ -67,12 +67,6 @@ def allOn():
 allOff()
 
 class Director:
-    """Represents the main object of the game.
- 
-    The Director object keeps the game on, and takes care of updating it,
-    drawing it and propagate events.
- 
-    This object must be used with Scene objects that are defined later."""
 
     def __init__(self):
         self.sceneActive = "menu"
@@ -126,7 +120,6 @@ class Director:
                                 self.menu.menuButtonActive = "rules"
                             elif self.menu.menuButtonActive == "about":
                                 self.menu.menuButtonActive = "high"
-                            ##pygame.display.update()
                         elif self.sceneActive =="GamePlay":
                             print("1")
                             self.input = self.input + "1"
@@ -138,28 +131,6 @@ class Director:
                             else:
                                 self.high = High(self)
                                 self.change_scene(self.high)
-
-                            # self.cursor_ms_counter += self.clock.get_time()
-                            # if self.cursor_ms_counter >= self.cursor_switch_ms:
-                            #     print("time")
-                            #     if self.tempLetter != "":
-                            #         self.cursor_ms_counter %= self.cursor_switch_ms
-                            #         # self.cursor_visible = not self.cursor_visible
-                            #         self.enterName = self.enterName + self.tempLetter
-                            #         self.tempLetter = ""
-                            # else:
-                            #     if self.tempLetter == "":
-                            #         self.tempLetter = "a"
-                            #     elif self.tempLetter == "a":
-                            #         self.tempLetter = "b"
-                            #     elif self.tempLetter == "b":
-                            #         self.tempLetter = "c"
-                            #     elif self.tempLetter == "c":
-                            #         self.tempLetter = "1"
-                            #     elif self.tempLetter == "1":
-                            #         self.tempLetter = "a"
-                            # print(str(self.tempLetter) + "  tempLetter")
-                            # print(str(self.enterName) + "   enterName")
 
                     if event.key == K_DOWN: #2 - arrow down
                         if self.sceneActive == "menu":
@@ -299,7 +270,6 @@ class Director:
                 self.cursor_ms_counter += self.clock.get_time()
                 if self.cursor_ms_counter >= self.cursor_switch_ms:
                     self.cursor_ms_counter %= self.cursor_switch_ms
-                    #self.cursor_visible = not self.cursor_visible
                     if self.tempLetter  != "":
                         self.setCharacter = True
                     print("temp letter " + str(self.tempLetter))
@@ -319,7 +289,6 @@ class Director:
             # Draw the screen
             self.scene.on_draw(self.screen, self)
             pygame.display.flip()
-            #print(self.menu.menuButtonActive)
 
             if self.scene.changeScene == True :
                 if self.scene.changeScene == "None":
@@ -426,7 +395,6 @@ class Menu(Scene):
             self.rulesButton("active")
             self.highButton("inactive")
             self.aboutButton("inactive")
-            ##pygame.display.update()
         elif state == "high":
             self.playButton("inactive")
             self.rulesButton("inactive")
@@ -521,14 +489,13 @@ class LoadLevel(Scene):
 
         self.screen.fill((35,108,135))
         self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, 200, self.white)
-        #self.time = self.text_to_screen(self.screen, str(thetime), self.screenWidth/2, self.screenHeight/2, 50, (0, 000, 000))
+
         self.text_to_screen(self.screen, 'Level', self.screenWidth/2, 100, 100, self.white)
         
 
         if(thetime >= 0.6):
             self.changeScene = True
             self.sceneMessage = "Game Play"
-        #print(thetime)
 
 
 class GamePlay(Scene):
@@ -544,7 +511,6 @@ class GamePlay(Scene):
         director.sceneActive = "GamePlay"
         
         self.screen.fill(self.bColor)
-        ##pygame.display.update()
 
         self.text_to_screen(self.screen, 'Neil Says...', self.screenWidth/2, 100, 100, self.white)
         self.answer = self.text_to_screen(self.screen, self.answer, self.screenWidth/2, self.screenHeight/2, 100, self.white)
@@ -695,13 +661,54 @@ class High(Scene):
         
         ##save high scores to external file. maybe txt? or maybe and array in a .py (so the array can be ordered)
         self.text_to_screen(self.screen, 'High Scores', self.screenWidth/2, 100, 100, self.white)
-        #self.scores = []
-        #self.scores.append([director.level - 1, director.enterName])
+        self.highScores = 'highScores.dat'
+        self.scores = []
+
+        # self.scores.append([director.level - 1, director.enterName])
 
         #works but does not store values after program closes
         # self.scores = scores.Scores(self)
         # self.scores.scores.append([director.level - 1, director.enterName])
         # print(self.scores.scores)
+
+        # try:
+        #     with open('score.dat', 'rb') as file:
+        #         self.scores = pickle.load(file)
+        # except:
+        #     score = 0
+
+        # print(self.scores)
+
+        # self.scores = [director.level - 1, director.enterName]
+
+        # # save the score
+        # with open('score.dat', 'a+') as file:
+        #     pickle.dump(self.scores, file)
+
+        # print(self.scores)
+
+        # first time you run this, "high_scores.dat" won't exist
+        #   so we need to check for its existence before we load 
+        #   our "database"
+        if os.path.exists(self.highScores):
+            # "with" statements are very handy for opening files. 
+            with open(self.highScores,'rb') as rfp: 
+                self.scores = pickle.load(rfp)
+            # Notice that there's no "rfp.close()"
+            #   ... the "with" clause calls close() automatically! 
+
+        self.high_scores = [director.level - 1, director.enterName]
+        self.scores.append(self.high_scores)
+
+        # Now we "sync" our database
+        with open(self.highScores,'wb') as wfp:
+            pickle.dump(self.scores, wfp)
+
+        # Re-load our database
+        with open(self.highScores,'rb') as rfp:
+            self.scores = pickle.load(rfp)
+
+        print(self.scores)
 
         allOn()
     def on_update(self,state):
@@ -722,7 +729,6 @@ class About(Scene):
         director.sceneActive = "About"
 
         self.screen.fill((35,108,135))
-        ##pygame.display.update()
 
         self.text_to_screen(self.screen, 'About', self.screenWidth/2, 100, 100, self.white)
 
