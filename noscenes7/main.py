@@ -611,6 +611,7 @@ class GamePlay(Scene):
         self.answer = self.words[self.director.level][3]
 
         self.raw = list(self.words[self.director.level][0])
+        time.sleep(1)
         while not self.lightsDone:
             for x in range(0, len(self.raw)):
                 if self.raw[x] == "2":
@@ -626,7 +627,6 @@ class GamePlay(Scene):
                 elif self.raw[x] == "4":
                     print("4")
                     allOff()
-                    allOn()
                     GPIO.output(23,GPIO.HIGH) # 4
                     time.sleep(1)
                 elif self.raw[x] == "5":
