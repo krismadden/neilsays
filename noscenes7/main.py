@@ -107,7 +107,26 @@ class Director:
         self.button_sound = pygame.mixer.Sound(os.path.join("music", "button_press.wav"))
         self.button_error = pygame.mixer.Sound(os.path.join("music", "error.wav"))
 
+        #LED setup
+        self.GPIO.setmode(GPIO.BCM) #sets to pin number position
+        self.GPIO.setwarnings(False)
 
+
+        self.GPIO.setup(21,GPIO.OUT) # #
+        self.GPIO.setup(20,GPIO.OUT) # 0
+        self.GPIO.setup(16,GPIO.OUT) # *
+        self.GPIO.setup(12,GPIO.OUT) # 9
+        self.GPIO.setup(7,GPIO.OUT) # 8
+        self.GPIO.setup(8,GPIO.OUT) # 7
+        self.GPIO.setup(25,GPIO.OUT) # 6
+        self.GPIO.setup(24,GPIO.OUT) # 5
+        self.GPIO.setup(23,GPIO.OUT) # 4
+        self.GPIO.setup(18,GPIO.OUT) # 3
+        self.GPIO.setup(15,GPIO.OUT) # 2
+        self.GPIO.setup(14,GPIO.OUT) # 1
+
+
+        self.allOff()
 
     def loop(self):
         "Main game loop."
@@ -376,6 +395,37 @@ class Director:
     def quit(self):
         self.quit_flag = True
 
+    def allOff():
+        #pass
+        self.GPIO.output(21,GPIO.LOW) # #
+        self.GPIO.output(20,GPIO.LOW) # 0
+        self.GPIO.output(16,GPIO.LOW) # *
+        self.GPIO.output(12,GPIO.LOW) # 9
+        self.GPIO.output(7,GPIO.LOW) # 8
+        self.GPIO.output(8,GPIO.LOW) # 7
+        self.GPIO.output(25,GPIO.LOW) # 6
+        self.GPIO.output(24,GPIO.LOW) # 5
+        self.GPIO.output(23,GPIO.LOW) # 4
+        self.GPIO.output(18,GPIO.LOW) # 3
+        self.GPIO.output(15,GPIO.LOW) # 2
+        self.GPIO.output(14,GPIO.LOW) # 1
+        print("allOff()")
+
+    def allOn():
+        print("allOn()")
+        self.GPIO.output(21,GPIO.HIGH) # #
+        self.GPIO.output(20,GPIO.HIGH) # 0
+        self.GPIO.output(16,GPIO.HIGH) # *
+        self.GPIO.output(12,GPIO.HIGH) # 9
+        self.GPIO.output(7,GPIO.HIGH) # 8
+        self.GPIO.output(8,GPIO.HIGH) # 7
+        self.GPIO.output(25,GPIO.HIGH) # 6
+        self.GPIO.output(24,GPIO.HIGH) # 5
+        self.GPIO.output(23,GPIO.HIGH) # 4
+        self.GPIO.output(18,GPIO.HIGH) # 3
+        self.GPIO.output(15,GPIO.HIGH) # 2
+        Gself.PIO.output(14,GPIO.HIGH) # 1
+
 
 
 class Scene:
@@ -558,7 +608,7 @@ class LoadLevel(Scene):
 
         self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, self.h0, self.white)
 
-        allOff()
+        director.allOff()
 
     def on_update(self,state):
         pass
@@ -775,7 +825,7 @@ class Rules(Scene):
 
         self.text_to_screen(self.screen, 'Rules', self.screenWidth/2, self.top, self.h1, self.white)
 
-        allOff()
+        director.allOff()
 
     def on_update(self,state):
         pass
@@ -913,7 +963,7 @@ class About(Scene):
 
         self.text_to_screen(self.screen, 'About', self.screenWidth/2, self.top, self.h1, self.white)
 
-        allOff()
+        director.allOff()
     def on_update(self,state):
         pass
 
