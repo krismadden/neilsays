@@ -695,7 +695,7 @@ class GamePlay(Scene):
                 allOff()
             self.director.input = ""
 
-        if lightsDone
+        if lightsDone:
             if len(self.updateInput) == len(self.words[self.director.level][0]):
                 if self.updateInput == self.words[self.director.level][0]:
                     self.bColor = ((101,196,121)) #GREEN
