@@ -611,7 +611,6 @@ class GamePlay(Scene):
         self.answer = self.words[self.director.level][3]
 
         self.raw = list(self.words[self.director.level][0])
-        allOff()
         time.sleep(1)
         while not self.lightsDone:
             for x in range(0, len(self.raw)):
