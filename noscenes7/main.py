@@ -74,7 +74,8 @@ class Director:
         self.menu = Menu(self)
 
 
-        self.screen = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN)
+        # self.screen = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((1920, 1200), pygame.FULLSCREEN)
         pygame.display.set_caption("Neil Says")
         self.quit_flag = False
         self.clock = pygame.time.Clock()
@@ -381,7 +382,8 @@ class Scene:
 
     def __init__(self, director):
         self.director = director
-        self.screen = pygame.display.set_mode((1920, 1080),pygame.FULLSCREEN)
+        #self.screen = pygame.display.set_mode((1920, 1080),pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((1920, 1200),pygame.FULLSCREEN)
         self.menuButtonActive = ""
 
         self.screenWidth = self.screen.get_rect().width
