@@ -616,7 +616,7 @@ class GamePlay(Scene):
             time.sleep(1)
             for x in range(0, len(self.raw)):
                 if self.raw[x] == "2":
-                    if x > 0
+                    if x != 0:
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                     print("2")
@@ -626,7 +626,7 @@ class GamePlay(Scene):
 
                     time.sleep(1)
                 elif self.raw[x] == "3":
-                    if x > 0
+                    if x != 0:
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                     print("3")
@@ -634,7 +634,7 @@ class GamePlay(Scene):
                     GPIO.output(18,GPIO.HIGH) # 3
                     time.sleep(1)
                 elif self.raw[x] == "4":
-                    if x > 0
+                    if x != 0:
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                     print("4")
@@ -642,7 +642,7 @@ class GamePlay(Scene):
                     GPIO.output(23,GPIO.HIGH) # 4
                     time.sleep(1)
                 elif self.raw[x] == "5":
-                    if x > 0
+                    if x != 0:
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                     print("5")
@@ -650,7 +650,7 @@ class GamePlay(Scene):
                     GPIO.output(24,GPIO.HIGH) # 5
                     time.sleep(1)
                 elif self.raw[x] == "6":
-                    if x > 0
+                    if x != 0:
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                     print("6")
@@ -658,7 +658,7 @@ class GamePlay(Scene):
                     GPIO.output(25,GPIO.HIGH) # 6
                     time.sleep(1)
                 elif self.raw[x] == "7":
-                    if x > 0
+                    if x != 0:
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                     print("7")
@@ -666,7 +666,7 @@ class GamePlay(Scene):
                     GPIO.output(8,GPIO.HIGH) # 7
                     time.sleep(1)
                 elif self.raw[x] == "8":
-                    if x > 0
+                    if x != 0:
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                     print("8")
@@ -674,7 +674,7 @@ class GamePlay(Scene):
                     GPIO.output(7,GPIO.HIGH) # 8
                     time.sleep(1)
                 elif self.raw[x] == "9":
-                    if x > 0
+                    if x != 0:
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                     print("9")
@@ -682,7 +682,7 @@ class GamePlay(Scene):
                     GPIO.output(12,GPIO.HIGH) # 9
                     time.sleep(1)
                 elif self.raw[x] == "0":
-                    if x > 0
+                    if x != 0:
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                     print("0")
@@ -690,7 +690,7 @@ class GamePlay(Scene):
                     GPIO.output(20,GPIO.HIGH) # 0
                     time.sleep(1)
                 elif self.raw[x] == "*":
-                    if x > 0
+                    if x != 0:
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                     print("*")
@@ -698,7 +698,7 @@ class GamePlay(Scene):
                     GPIO.output(16,GPIO.HIGH) # *
                     time.sleep(1)
                 elif self.raw[x] == "#":
-                    if x > 0
+                    if x != 0:
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                     print("#")
@@ -706,7 +706,7 @@ class GamePlay(Scene):
                     GPIO.output(21,GPIO.HIGH) # #
                     time.sleep(1)
                 elif self.raw[x] == "1":
-                    if x > 0
+                    if x != 0:
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                     print("1")
@@ -714,7 +714,7 @@ class GamePlay(Scene):
                     GPIO.output(14,GPIO.HIGH) # 1
                     time.sleep(1)
             if x == len(self.raw) - 1:
-                if x > 0
+                if x != 0:
                         if self.raw[x-1] == self.raw[x]:
                             time.sleep(0.3)
                 self.lightsDone = True
