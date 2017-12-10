@@ -15,56 +15,56 @@ from pygame_functions import *
 
 
 
-# #LED setup
-# GPIO.setmode(GPIO.BCM) #sets to pin number position
-# GPIO.setwarnings(False)
+#LED setup
+GPIO.setmode(GPIO.BCM) #sets to pin number position
+GPIO.setwarnings(False)
 
 
-# GPIO.setup(21,self.GPIO.OUT) # #
-# GPIO.setup(20,self.GPIO.OUT) # 0
-# GPIO.setup(16,self.GPIO.OUT) # *
-# GPIO.setup(12,self.GPIO.OUT) # 9
-# GPIO.setup(7,self.GPIO.OUT) # 8
-# GPIO.setup(8,self.GPIO.OUT) # 7
-# GPIO.setup(25,self.GPIO.OUT) # 6
-# GPIO.setup(24,self.GPIO.OUT) # 5
-# GPIO.setup(23,self.GPIO.OUT) # 4
-# GPIO.setup(18,self.GPIO.OUT) # 3
-# GPIO.setup(15,self.GPIO.OUT) # 2
-# GPIO.setup(14,self.GPIO.OUT) # 1
+GPIO.setup(21,GPIO.OUT) # #
+GPIO.setup(20,GPIO.OUT) # 0
+GPIO.setup(16,GPIO.OUT) # *
+GPIO.setup(12,GPIO.OUT) # 9
+GPIO.setup(7,GPIO.OUT) # 8
+GPIO.setup(8,GPIO.OUT) # 7
+GPIO.setup(25,GPIO.OUT) # 6
+GPIO.setup(24,GPIO.OUT) # 5
+GPIO.setup(23,GPIO.OUT) # 4
+GPIO.setup(18,GPIO.OUT) # 3
+GPIO.setup(15,GPIO.OUT) # 2
+GPIO.setup(14,GPIO.OUT) # 1
 
-# def allOff():
-#     pass
-#     self.GPIO.OUTput(21,GPIO.LOW) # #
-#     self.GPIO.OUTput(20,GPIO.LOW) # 0
-#     self.GPIO.OUTput(16,GPIO.LOW) # *
-#     self.GPIO.OUTput(12,GPIO.LOW) # 9
-#     self.GPIO.OUTput(7,GPIO.LOW) # 8
-#     self.GPIO.OUTput(8,GPIO.LOW) # 7
-#     self.GPIO.OUTput(25,GPIO.LOW) # 6
-#     self.GPIO.OUTput(24,GPIO.LOW) # 5
-#     self.GPIO.OUTput(23,GPIO.LOW) # 4
-#     self.GPIO.OUTput(18,GPIO.LOW) # 3
-#     self.GPIO.OUTput(15,GPIO.LOW) # 2
-#     self.GPIO.OUTput(14,GPIO.LOW) # 1
-#     print("allOff()")
+def allOff():
+    pass
+    GPIO.output(21,GPIO.LOW) # #
+    GPIO.output(20,GPIO.LOW) # 0
+    GPIO.output(16,GPIO.LOW) # *
+    GPIO.output(12,GPIO.LOW) # 9
+    GPIO.output(7,GPIO.LOW) # 8
+    GPIO.output(8,GPIO.LOW) # 7
+    GPIO.output(25,GPIO.LOW) # 6
+    GPIO.output(24,GPIO.LOW) # 5
+    GPIO.output(23,GPIO.LOW) # 4
+    GPIO.output(18,GPIO.LOW) # 3
+    GPIO.output(15,GPIO.LOW) # 2
+    GPIO.output(14,GPIO.LOW) # 1
+    print("allOff()")
 
-# def allOn():
-#     print("allOn()")
-#     self.GPIO.OUTput(21,GPIO.HIGH) # #
-#     self.GPIO.OUTput(20,GPIO.HIGH) # 0
-#     self.GPIO.OUTput(16,GPIO.HIGH) # *
-#     self.GPIO.OUTput(12,GPIO.HIGH) # 9
-#     self.GPIO.OUTput(7,GPIO.HIGH) # 8
-#     self.GPIO.OUTput(8,GPIO.HIGH) # 7
-#     self.GPIO.OUTput(25,GPIO.HIGH) # 6
-#     self.GPIO.OUTput(24,GPIO.HIGH) # 5
-#     self.GPIO.OUTput(23,GPIO.HIGH) # 4
-#     self.GPIO.OUTput(18,GPIO.HIGH) # 3
-#     self.GPIO.OUTput(15,GPIO.HIGH) # 2
-#     self.GPIO.OUTput(14,GPIO.HIGH) # 1
+def allOn():
+    print("allOn()")
+    GPIO.output(21,GPIO.HIGH) # #
+    GPIO.output(20,GPIO.HIGH) # 0
+    GPIO.output(16,GPIO.HIGH) # *
+    GPIO.output(12,GPIO.HIGH) # 9
+    GPIO.output(7,GPIO.HIGH) # 8
+    GPIO.output(8,GPIO.HIGH) # 7
+    GPIO.output(25,GPIO.HIGH) # 6
+    GPIO.output(24,GPIO.HIGH) # 5
+    GPIO.output(23,GPIO.HIGH) # 4
+    GPIO.output(18,GPIO.HIGH) # 3
+    GPIO.output(15,GPIO.HIGH) # 2
+    GPIO.output(14,GPIO.HIGH) # 1
 
-# allOff()
+allOff()
 
 class Director:
 
@@ -74,8 +74,8 @@ class Director:
         self.menu = Menu(self)
 
 
-        # self.screen = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN)
-        self.screen = pygame.display.set_mode((1280, 720), pygame.FULLSCREEN)
+        #self.screen = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((1280, 1000), pygame.FULLSCREEN)
         pygame.display.set_caption("Neil Says")
         self.quit_flag = False
         self.clock = pygame.time.Clock()
@@ -107,26 +107,7 @@ class Director:
         self.button_sound = pygame.mixer.Sound(os.path.join("music", "button_press.wav"))
         self.button_error = pygame.mixer.Sound(os.path.join("music", "error.wav"))
 
-        #LED setup
-        self.GPIO.setmode(self.GPIO.BCM) #sets to pin number position
-        self.GPIO.setwarnings(False)
 
-
-        self.GPIO.setup(21,self.GPIO.OUT) # #
-        self.GPIO.setup(20,self.GPIO.OUT) # 0
-        self.GPIO.setup(16,self.GPIO.OUT) # *
-        self.GPIO.setup(12,self.GPIO.OUT) # 9
-        self.GPIO.setup(7,self.GPIO.OUT) # 8
-        self.GPIO.setup(8,self.GPIO.OUT) # 7
-        self.GPIO.setup(25,self.GPIO.OUT) # 6
-        self.GPIO.setup(24,self.GPIO.OUT) # 5
-        self.GPIO.setup(23,self.GPIO.OUT) # 4
-        self.GPIO.setup(18,self.GPIO.OUT) # 3
-        self.GPIO.setup(15,self.GPIO.OUT) # 2
-        self.GPIO.setup(14,self.GPIO.OUT) # 1
-
-
-        self.allOff()
 
     def loop(self):
         "Main game loop."
@@ -395,37 +376,6 @@ class Director:
     def quit(self):
         self.quit_flag = True
 
-    def allOff():
-        #pass
-        self.self.GPIO.OUTput(21,GPIO.LOW) # #
-        self.self.GPIO.OUTput(20,GPIO.LOW) # 0
-        self.self.GPIO.OUTput(16,GPIO.LOW) # *
-        self.self.GPIO.OUTput(12,GPIO.LOW) # 9
-        self.self.GPIO.OUTput(7,GPIO.LOW) # 8
-        self.self.GPIO.OUTput(8,GPIO.LOW) # 7
-        self.self.GPIO.OUTput(25,GPIO.LOW) # 6
-        self.self.GPIO.OUTput(24,GPIO.LOW) # 5
-        self.self.GPIO.OUTput(23,GPIO.LOW) # 4
-        self.self.GPIO.OUTput(18,GPIO.LOW) # 3
-        self.self.GPIO.OUTput(15,GPIO.LOW) # 2
-        self.self.GPIO.OUTput(14,GPIO.LOW) # 1
-        print("allOff()")
-
-    def allOn():
-        print("allOn()")
-        self.self.GPIO.OUTput(21,GPIO.HIGH) # #
-        self.self.GPIO.OUTput(20,GPIO.HIGH) # 0
-        self.self.GPIO.OUTput(16,GPIO.HIGH) # *
-        self.self.GPIO.OUTput(12,GPIO.HIGH) # 9
-        self.self.GPIO.OUTput(7,GPIO.HIGH) # 8
-        self.self.GPIO.OUTput(8,GPIO.HIGH) # 7
-        self.self.GPIO.OUTput(25,GPIO.HIGH) # 6
-        self.self.GPIO.OUTput(24,GPIO.HIGH) # 5
-        self.self.GPIO.OUTput(23,GPIO.HIGH) # 4
-        self.self.GPIO.OUTput(18,GPIO.HIGH) # 3
-        self.self.GPIO.OUTput(15,GPIO.HIGH) # 2
-        Gself.PIO.output(14,GPIO.HIGH) # 1
-
 
 
 class Scene:
@@ -433,7 +383,7 @@ class Scene:
     def __init__(self, director):
         self.director = director
         #self.screen = pygame.display.set_mode((1920, 1080),pygame.FULLSCREEN)
-        self.screen = pygame.display.set_mode((1280, 720),pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((1280, 1000), pygame.FULLSCREEN)
         self.menuButtonActive = ""
 
         self.screenWidth = self.screen.get_rect().width
@@ -608,7 +558,7 @@ class LoadLevel(Scene):
 
         self.levelNumber = self.text_to_screen(self.screen, str(self.director.level), self.screenWidth/2, self.screenHeight/2, self.h0, self.white)
 
-        director.allOff()
+        allOff()
 
     def on_update(self,state):
         pass
@@ -665,55 +615,55 @@ class GamePlay(Scene):
             for x in range(0, len(self.raw)):
                 if self.raw[x] == "2":
                     print("2")
-                    director.allOff()
-                    director.self.GPIO.OUTput(15,GPIO.HIGH) # 2
+                    allOff()
+                    GPIO.output(15,GPIO.HIGH) # 2
                 elif self.raw[x] == "3":
                     print("3")
-                    director.allOff()
-                    director.self.GPIO.OUTput(18,GPIO.HIGH) # 3
+                    allOff()
+                    GPIO.output(18,GPIO.HIGH) # 3
                 elif self.raw[x] == "4":
                     print("4")
-                    director.allOff()
-                    director.self.GPIO.OUTput(23,GPIO.HIGH) # 4
+                    allOff()
+                    GPIO.output(23,GPIO.HIGH) # 4
                 elif self.raw[x] == "5":
                     print("5")
-                    director.allOff()
-                    director.self.GPIO.OUTput(24,GPIO.HIGH) # 5
+                    allOff()
+                    GPIO.output(24,GPIO.HIGH) # 5
                 elif self.raw[x] == "6":
                     print("6")
-                    director.allOff()
-                    director.self.GPIO.OUTput(25,GPIO.HIGH) # 6
+                    allOff()
+                    GPIO.output(25,GPIO.HIGH) # 6
                 elif self.raw[x] == "7":
                     print("7")
-                    director.allOff()
-                    director.self.GPIO.OUTput(8,GPIO.HIGH) # 7
+                    allOff()
+                    GPIO.output(8,GPIO.HIGH) # 7
                 elif self.raw[x] == "8":
                     print("8")
-                    director.allOff()
-                    director.self.GPIO.OUTput(7,GPIO.HIGH) # 8
+                    allOff()
+                    GPIO.output(7,GPIO.HIGH) # 8
                 elif self.raw[x] == "9":
                     print("9")
-                    director.allOff()
-                    director.self.GPIO.OUTput(12,GPIO.HIGH) # 9
+                    allOff()
+                    GPIO.output(12,GPIO.HIGH) # 9
                 elif self.raw[x] == "0":
                     print("0")
-                    director.allOff()
-                    director.self.GPIO.OUTput(20,GPIO.HIGH) # 0
+                    allOff()
+                    GPIO.output(20,GPIO.HIGH) # 0
                 elif self.raw[x] == "*":
                     print("*")
-                    director.allOff()
-                    director.self.GPIO.OUTput(16,GPIO.HIGH) # *
+                    allOff()
+                    GPIO.output(16,GPIO.HIGH) # *
                 elif self.raw[x] == "#":
                     print("#")
-                    director.allOff()
-                    director.self.GPIO.OUTput(21,GPIO.HIGH) # #
+                    allOff()
+                    GPIO.output(21,GPIO.HIGH) # #
                 elif self.raw[x] == "1":
                     print("1")
-                    director.allOff()
-                    director.self.GPIO.OUTput(14,GPIO.HIGH) # 1
+                    allOff()
+                    GPIO.output(14,GPIO.HIGH) # 1
             if x == len(self.raw) - 1:
                 self.lightsDone = True
-                director.allOff()
+                allOff()
 
         if len(self.updateInput) == len(self.words[self.director.level][0]):
             if self.updateInput == self.words[self.director.level][0]:
@@ -825,7 +775,7 @@ class Rules(Scene):
 
         self.text_to_screen(self.screen, 'Rules', self.screenWidth/2, self.top, self.h1, self.white)
 
-        director.allOff()
+        allOff()
 
     def on_update(self,state):
         pass
@@ -963,7 +913,7 @@ class About(Scene):
 
         self.text_to_screen(self.screen, 'About', self.screenWidth/2, self.top, self.h1, self.white)
 
-        director.allOff()
+        allOff()
     def on_update(self,state):
         pass
 
