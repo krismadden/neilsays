@@ -622,8 +622,6 @@ class GamePlay(Scene):
                     print("2")
                     allOff()
                     GPIO.output(15,GPIO.HIGH) # 2
-                    else:
-
                     time.sleep(1)
                 elif self.raw[x] == "3":
                     if x != 0:
