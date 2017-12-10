@@ -626,6 +626,7 @@ class GamePlay(Scene):
                 elif self.raw[x] == "4":
                     print("4")
                     allOff()
+                    allOn()
                     GPIO.output(23,GPIO.HIGH) # 4
                     time.sleep(1)
                 elif self.raw[x] == "5":
